@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="css/docentScoreOverzicht.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quiz Overzicht</title>
+</head>
+<body>
+<div id="header">
+	<i id="menu" onclick="openNav()" class="fa fa-bars"></i>
+    <h1>Cijfer Overzicht</h1>
+</div>
+<div id="mySidenav" class="sidenav">
+  <a id="close" href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+  <a href="home.html"><i class="fa fa-home"> Home</i></a>
+  <a id="quizCreator" href="quizCreator.html"><i class="fa fa-plus"> Quiz Maken</i></a> 
+  <a href="quizOverzicht.html" id="leerling"><i class="fa fa-question-circle"> Quiz Overzicht</i></a>
+  <a href="docentQuizOverzicht.html" id="docent"><i class="fa fa-question-circle"> Quiz Overzicht</i></a>  
+  <a href="scoreOverzicht.html" id="leerlingScore"><i class="fa fa-list"> Cijfer Overzicht</i></a>
+  <a class="active" href="docentScoreOverzicht.html" id="docentScore"><i class="fa fa-list">Cijfer Overzicht</i></a>
+  <a href="lijstAanmaken.html" id="lijstMaken"><i class="fa fa-plus">Woordenlijst Maken</i></a>
+  <a href="lijstOverzicht.html" id="lijstOverzicht"><i class="fa fa-question-circle">Mijn Lijsten</i></a>
+  <a href="openbareLijsten.html" id="openbareLijsten"><i class="fa fa-question-circle">Openbare Lijsten</i></a>
+  <a href="accounts.html" id="accounts"><i class="fa fa-users">Accounts</i></a>
+  <a href="index.html"><i class="fa fa-sign-out">Logout</i></a> 
+</div>
+<div id="main">
+<table id="filters">
+	<tr>
+		<td><input type="text" onkeyup="sortQuizNaam()" id="filterNaam" class="filter" placeholder="Zoek op Quiz Naam..."/></td>
+		<td><input type="text" onkeyup="sortLeerlingnummer()" id="filterLeerlingnummer" class="filter" placeholder="Zoek op Leerlingnummer..."/></td>
+		<td><input type="text" onkeyup="sortDatum()" id="filterDatum" class="filter" placeholder="Zoek op Datum..."/></td>
+	</tr>
+</table>
+<table id="quizzes">
+<thead>
+	<tr>
+		<th>Naam</th>
+		<th>Leerlingnummer</th>
+		<th>Cijfer</th>
+		<th>Datum</th>
+	</tr>
+</thead>
+<tbody></tbody>
+</table>
+</div>
+</body>
+<script src="https://code.jquery.com/jquery-3.2.0.min.js"></script>
+<script src="js/docentScoreOverzicht.js"></script>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="css/home.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Home</title>
+</head>
+<body>
+<div id="header">
+	<i id="menu" onclick="openNav()" class="fa fa-bars"></i>
+    <h1>Home</h1>
+</div>
+<div id="mySidenav" class="sidenav">
+  <a id="close" href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+  <a href="home.html" class="active"><i class="fa fa-home"> Home</i></a>
+  <a id="quizCreator" href="quizCreator.html"><i class="fa fa-plus"> Quiz Maken</i></a> 
+  <a href="quizOverzicht.html" id="leerling"><i class="fa fa-question-circle"> Quiz Overzicht</i></a>
+  <a href="docentQuizOverzicht.html" id="docent"><i class="fa fa-question-circle"> Quiz Overzicht</i></a> 
+  <a href="scoreOverzicht.html" id="leerlingScore"><i class="fa fa-list"> Cijfer Overzicht</i></a>
+  <a href="docentScoreOverzicht.html" id="docentScore"><i class="fa fa-list">Cijfer Overzicht</i></a>
+  <a href="lijstAanmaken.html" id="lijstMaken"><i class="fa fa-plus">Woordenlijst Maken</i></a>
+  <a href="lijstOverzicht.html" id="lijstOverzicht"><i class="fa fa-question-circle">Mijn Lijsten</i></a>
+  <a href="openbareLijsten.html" id="openbareLijsten"><i class="fa fa-question-circle">Openbare Lijsten</i></a>
+  <a href="accounts.html" id="accounts"><i class="fa fa-users">Accounts</i></a>
+  <a href="index.html"><i class="fa fa-sign-out">Logout</i></a>
+</div>
+<div id="main">
+</div>
+</body>
+<script src="https://code.jquery.com/jquery-3.2.0.min.js"></script>
+<script>
+//haal de rol uit de sessionStorage
+var role = window.sessionStorage.getItem("Role");
+//verberg een aantal menu opties gebazeerd op de rol
+function initPage() {
+	if (role == "leerling") {
+		$("#quizCreator").hide();
+		$("#docent").hide();
+		$("#docentScore").hide();
+		$("#accounts").hide();
+	}
+	else if (role == "docent") {
+		$("#leerling").hide();
+		$("#leerlingScore").hide();
+		$("#lijstMaken").hide();
+		$("#lijstOverzicht").hide();
+		$("#openbareLijsten").hide();
+		$("#accounts").hide();
+	}
+}
+
+//zet de breedte van de navigatie op 250px
+function openNav() {
+    document.getElementById("mySidenav").style.width = "250px";
+    document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
+}
+
+//zet de navigatie op 0 px
+function closeNav() {
+    document.getElementById("mySidenav").style.width = "0";
+    document.body.style.backgroundColor = "white";
+}
+
+window.onload= initPage;
+</script>
+</html>

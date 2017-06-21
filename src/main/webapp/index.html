@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="css/login.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Login</title>
+</head>
+<body>
+	<div class="titel">
+		<h1>Cals IJsselstein Login</h1>
+	</div>
+	<div class="container">
+		<div class="inner">
+			<h1>Login</h1>
+			<h3>Voer je Gebruikersnaam en Wachtwoord in</h3>
+			<div id="response"></div>
+
+			<form id="loginform">
+				<br> <label><span class="glyphicon glyphicon-user"></span></label>
+				<input type="text" placeholder='Gebruikersnaam' class="input" name="username" id="username" />
+				<br>
+				<label><span class="glyphicon glyphicon-lock"></span></label> 
+				<input type="password" placeholder="Wachtwoord" class="input" name="password" id="password" />
+				<br>
+				<button type="button" id="login">Login</button>
+			</form>
+		</div>
+	</div>
+</body>
+<script src="https://code.jquery.com/jquery-3.2.0.min.js"></script>
+<script>
+function initPage() {
+	// leeg de sessionStorage
+	window.sessionStorage.clear();
+}
+
+$("#login").click(function(event) {
+	//seriazize het formulier
+	var data = $("#loginform").serialize();
+	$.post("restservices/authentication", data, function(response) {
+		//voeg de token die teruggestuurd wordt toe aan de sessionStorage
+		window.sessionStorage.setItem("sessionToken", response);
+		//zet een timeout van 600 miliseconden totdat hij naar home gaat
+		setTimeout(function() {
+	 		window.location.href = 'home.html';
+	 	}, 600);
+	//als de token ophale niet werkt doe dan het volgende
+	}).fail(function(jqXHR, textStatus, errorThrown) {
+		$("#response").text("Wachtwoord of Gebruikersnaam incorrect");
+		console.log(textStatus);
+		console.log(errorThrown);
+	});
+	
+	//zet een timeout van 400 miliseconden totdat de volgende functies worden uitgevoerd
+	setTimeout(function() {
+		var inlognaam = $("#username").val();
+		//roep de volgend url aan met de waarde van het veld username
+	 	$.get("/restservices/accounts/" + inlognaam, function(data) {
+	 		//sla de rol op in de sessionStorage
+	 		window.sessionStorage.setItem("Role", data.Rol);
+	 		//als de rol een leerling is sla dan het leerlingnummer op in de sessionStorage
+	 		if (data.Rol == "leerling") {
+	 			$.get("/restservices/leerlingen/" + inlognaam, function(leerling) {
+	 				window.sessionStorage.setItem("Leerlingnummer", leerling.Leerlingnummer);
+	 			});
+	 		}
+	 		//als de rol een docent is sla dan de voor en achternaam op in de sessionStorage
+	 		else if(data.Rol == "docent") {
+	 			$.get("/restservices/docenten/" + inlognaam, function(docent) {
+	 				window.sessionStorage.setItem("DocentNaam", docent.Naam +" "+ docent.Achternaam);
+	 			});
+	 		}
+	 	});
+	}, 400);
+	
+});
+
+window.onload = initPage;
+</script>
+</html>
