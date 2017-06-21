@@ -22,7 +22,7 @@ function initPage() {
 
 $("#saveLijst").click(function() {
 	//defineer de url waar het formulier heen gestuurd moet worden
-	var uri = "/quizschoolapp/restservices/woordenlijsten";
+	var uri = "/restservices/woordenlijsten";
 	$.ajax({
 		type: "POST",
 		url: uri,
@@ -55,7 +55,7 @@ $("#saveLijst").click(function() {
 
 $("#volgendeWoord").click(function() {
 	//defineer de url waar het formulier naar toe gestuurd moet worden
-	var uri = "/quizschoolapp/restservices/woordenlijsten/insertWoord";
+	var uri = "/restservices/woordenlijsten/insertWoord";
 	$.ajax({
 		type: "POST",
 		url: uri,
@@ -83,7 +83,7 @@ $("#volgendeWoord").click(function() {
 
 $("#opslaan").click(function() {
 	//defineer de url waar het formulier naar toe gestuurd moet worden
-	var uri = "/quizschoolapp/restservices/woordenlijsten/insertWoord";
+	var uri = "/restservices/woordenlijsten/insertWoord";
 	$.ajax({
 		type: "POST",
 		url: uri,

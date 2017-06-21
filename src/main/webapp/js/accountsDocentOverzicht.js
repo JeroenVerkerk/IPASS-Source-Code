@@ -5,7 +5,7 @@ $("#docentOverzicht").click(function() {
 	$("#docentOverzichtTable").show();
 	
 	//roep de volgende url aan
-	$.get("http://localhost:4711/quizschoolapp/restservices/docenten", function(data) {
+	$.get("/restservices/docenten", function(data) {
 		$.each(data, function(i, docent) {
 			var naam = docent.Naam+' '+docent.Achternaam;
 			//defineer de onlcick functies die worden meegegeven aan de buttons
@@ -19,7 +19,7 @@ $("#docentOverzicht").click(function() {
 
 function getDocent(docentnummer) {
 	//roep de volgende url aan met het docentnummer dat hierboven is verkregen
-	$.get("http://localhost:4711/quizschoolapp/restservices/docenten/docent/"+docentnummer, function(data){
+	$.get("/restservices/docenten/docent/"+docentnummer, function(data){
 		var inlognaam = data.Inlognaam;
 		//roep de functie deleteDocent aan
 		deleteDocent(docentnummer, inlognaam)
@@ -28,7 +28,7 @@ function getDocent(docentnummer) {
 
 function deleteDocent(docentnummer, inlognaam) {
 	//defineer de url met de inlognaam en docentnummer die hierboven zijn meegestuurd
-	var uri = "http://localhost:4711/quizschoolapp/restservices/accounts/docent/"+inlognaam+"/"+docentnummer;
+	var uri = "/restservices/accounts/docent/"+inlognaam+"/"+docentnummer;
 	$.ajax(uri, {
 		type: "DELETE",
 		//voordat de request wordt verstuurd stuur eerst de token om te kijken of de gebruiker dit wel mag uitvoeren
@@ -50,7 +50,7 @@ function deleteDocent(docentnummer, inlognaam) {
 
 function getUpdateDocent(docentnummer) {
 	//roep de volgende url aan met het docent nummer dat in het begin is meegegeven
-	$.get("http://localhost:4711/quizschoolapp/restservices/docenten/docent/"+docentnummer, function(data) {
+	$.get("/restservices/docenten/docent/"+docentnummer, function(data) {
 		//sla alle data op in variabelen
 		var niveau = data.Niveau;
 		var naam = data.Naam;
@@ -62,7 +62,7 @@ function getUpdateDocent(docentnummer) {
 		var inlognaam = data.Inlognaam;
 		
 		//roep de volgende url aan met de inlognaam die hierboven verkregen is
-		$.get("http://localhost:4711/quizschoolapp/restservices/accounts/"+inlognaam, function(account) {
+		$.get("/restservices/accounts/"+inlognaam, function(account) {
 			var role= account.Rol
 			var wachtwoord = account.Wachtwoord;
 			
@@ -95,7 +95,7 @@ function showUpdateDocent(docentnummer, niveau, naam, achternaam, postcode, woon
 
 $("#updateDocent").click(function(){
 	//defineer de volgende url
-	var uri = "http://localhost:4711/quizschoolapp/restservices/accounts/updateDocent/" + $("#insertInlognaam2").val();
+	var uri = "/restservices/accounts/updateDocent/" + $("#insertInlognaam2").val();
 	
 	$.ajax(uri, {
 		type: "PUT",

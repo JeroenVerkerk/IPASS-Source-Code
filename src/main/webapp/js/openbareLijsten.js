@@ -17,7 +17,7 @@ function initPage() {
 	}
 	
 	//stuur een request naar deze url
-	$.get("/quizschoolapp/restservices/woordenlijsten/openbaar", function(data) {
+	$.get("/restservices/woordenlijsten/openbaar", function(data) {
 		$.each(data, function(i, lijst) {
 			var test = '"';
 			var taal1 = lijst.Taal1;

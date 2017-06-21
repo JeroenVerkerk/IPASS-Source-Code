@@ -20,7 +20,7 @@ function initPage() {
 	}
 	
 	//roep de volgende url aan met het docentnummer uit de sessionStorage dat bij het inloggen is opgeslagen
-	$.get("/quizschoolapp/restservices/quizzes/byDocent/"+window.sessionStorage.getItem("DocentNaam"), function(data) {
+	$.get("/restservices/quizzes/byDocent/"+window.sessionStorage.getItem("DocentNaam"), function(data) {
 		$.each(data, function(i, quiz) {
 			var quizId = quiz.QuizId;
 			var naam = quiz.Naam;
@@ -143,7 +143,7 @@ function sortNiveau() {
 	
 function deleteQuiz(quizId) {
 	//defineer de url met de het id dat vast zit aan de button
-	var uri = "/quizschoolapp/restservices/quizzes/" + quizId;
+	var uri = "/restservices/quizzes/" + quizId;
 	$.ajax(uri, {
 		type: "DELETE",
 		//voordat de request gestuurd wordt stuur eerst de token om te kijken of de gebruiker dit wel mag

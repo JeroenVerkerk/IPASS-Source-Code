@@ -22,7 +22,7 @@ function initPage() {
 	}
 	else {
 		//haal alle quizzen op
-		$.get("/quizschoolapp/restservices/quizzes", function(data) {
+		$.get("/restservices/quizzes", function(data) {
 			$.each(data, function(i, quiz) {
 				var quizId = quiz.QuizId;
 				var naam = quiz.Naam;
@@ -148,7 +148,7 @@ $("#selecteer").click(function() {
 	$("#small").hide();
 	
 	//haal de quizzen op die het vak en niveau hebben dat geselecteerd is
-	$.get("/quizschoolapp/restservices/quizzes/overzicht/"+vak+"/"+niveau, function(data) {
+	$.get("/restservices/quizzes/overzicht/"+vak+"/"+niveau, function(data) {
 		$.each(data, function(i, quiz) {
 			var naam = quiz.Naam;
 			var vak = quiz.Vak;

@@ -18,7 +18,7 @@ function initPage() {
 	}
 	
 	//roep de volgende url aan met de docentnaam uit de ssionStorage
-	$.get("/quizschoolapp/restservices/quizzes/byDocent/"+window.sessionStorage.getItem("DocentNaam"), function(data) {
+	$.get("/restservices/quizzes/byDocent/"+window.sessionStorage.getItem("DocentNaam"), function(data) {
 		$.each(data, function(i, quiz) {
 			var quizId = quiz.QuizId;
 			
@@ -30,7 +30,7 @@ function initPage() {
 
 function getScores(quizId) {
 	//roep de volgende url aan met het meegegeven quizId
-	$.get("/quizschoolapp/restservices/scores/docent/"+quizId, function(data) {
+	$.get("/restservices/scores/docent/"+quizId, function(data) {
 		$.each(data, function(i, score) {
 			var naam = score.QuizNaam;
 			var leerlingnummer = score.Leerlingnummer;

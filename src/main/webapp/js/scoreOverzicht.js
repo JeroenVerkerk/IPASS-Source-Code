@@ -17,7 +17,7 @@ function initPage() {
 	}
 	
 	//haal alle scores op die hetzelfde leerlingnummer hebben als het nummer in de sessionStorage
-	$.get("/quizschoolapp/restservices/scores/leerling/"+window.sessionStorage.getItem("Leerlingnummer"), function(data) {
+	$.get("/restservices/scores/leerling/"+window.sessionStorage.getItem("Leerlingnummer"), function(data) {
 		$.each(data, function(i, score) {
 			var naam = score.QuizNaam;
 			var cijfer = score.Score;
@@ -28,7 +28,7 @@ function initPage() {
 	});
 	
 	//haal alle scores op die hetzelfde leerlingnummer hebben als het nummer in de sessionStorage
-	$.get("/quizschoolapp/restservices/scores/leerling/lijst/" + window.sessionStorage.getItem("Leerlingnummer"), function(data2) {
+	$.get("/restservices/scores/leerling/lijst/" + window.sessionStorage.getItem("Leerlingnummer"), function(data2) {
 		$.each(data2, function(l, score2) {
 			//maak voor elke score een nieuwe rij aan in de tabel
 			$("#woordenlijsten").append("<tr><td>" + score2.LijstNaam + "</td><td>" + score2.Score + "</td><td>" + score2.Datum + "</td></tr>");

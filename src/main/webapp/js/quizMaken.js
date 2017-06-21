@@ -25,8 +25,8 @@ function initPage() {
 	var id = window.sessionStorage.getItem("QuizId");
 	//zet de titel hetzelfde als de quiznaam
 	$("#title").text(window.sessionStorage.getItem("QuizNaam"));
-	var uri = "/quizschoolapp/restservices/quizzes/question/" + id;
-	var uri2 = "/quizschoolapp/restservices/quizzes/" + id;
+	var uri = "/restservices/quizzes/question/" + id;
+	var uri2 = "/restservices/quizzes/" + id;
 	//sla alle vragen op in een arraylist
 	$.get(uri, function(data) {
 		questions = data;
@@ -42,7 +42,7 @@ $("#startButton").click(function() {
 	//haal het vraagId uit de arraylist op plaat 0
 	var id = questions[0].QuestionId;
 	//gebruik het id om alle antwoorden te krijgen
-	var uri = "/quizschoolapp/restservices/quizzes/answer/" + id;
+	var uri = "/restservices/quizzes/answer/" + id;
 	$.get(uri, function(data) {
 		$.each(data, function(i, answer) {
 			var a = answer.Answer
@@ -68,7 +68,7 @@ $("#nextQuestion").click(function() {
 	if (questions.length == count + 1) {
 		$("#nextQuestion").hide();
 		$("#controleren").show();
-		var uri = "/quizschoolapp/restservices/quizzes/answer/" + id;
+		var uri = "/restservices/quizzes/answer/" + id;
 		//leeg de div
 		$("#quiz").empty();
 		//voeg een nieuw textarea toe met de vraag erin
@@ -85,7 +85,7 @@ $("#nextQuestion").click(function() {
 	}
 	//als count + 1 niet net zo groot is als de grootte van de array doe dan het volgende
 	else {
-		var uri = "/quizschoolapp/restservices/quizzes/answer/" + id;
+		var uri = "/restservices/quizzes/answer/" + id;
 		//leeg de div
 		$("#quiz").empty();
 		//maak een nieuw textarea aan met de vraag erin

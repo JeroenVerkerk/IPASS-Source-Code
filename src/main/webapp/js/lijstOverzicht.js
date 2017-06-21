@@ -18,7 +18,7 @@ function initPage() {
 	}
 	
 	//roep de volgende url aan met het leerlingnummer uit de sessionStorage
-	$.get("/quizschoolapp/restservices/woordenlijsten/" + leerlingnummer, function(data) {
+	$.get("/restservices/woordenlijsten/" + leerlingnummer, function(data) {
 		$.each(data, function(i, lijst) {
 			var test = '"';
 			var taal1 = lijst.Taal1;
@@ -53,7 +53,7 @@ function showLijst(lijstId, lijstNaam, taal1, taal2) {
 
 function deleteLijst(lijstId) {
 	//vraag de volgende url aan met het id dat van de button afkomt
-	var uri = "/quizschoolapp/restservices/woordenlijsten/" + lijstId;
+	var uri = "/restservices/woordenlijsten/" + lijstId;
 	$.ajax(uri, {
 		type: "DELETE",
 		//stuur voor de request de token om te kijken of de gebruiker dit mag doen
@@ -75,7 +75,7 @@ function deleteLijst(lijstId) {
 
 function showWoorden(lijstId) {
 	//roep de volgende url aan en zet de waarde van de table headers
-	$.get("/quizschoolapp/restservices/woordenlijsten/lijst/" + lijstId, function(data) {
+	$.get("/restservices/woordenlijsten/lijst/" + lijstId, function(data) {
 		$("#taal1").text(data.Taal1);
 		$("#taal2").text(data.Taal2);
 	});
@@ -83,7 +83,7 @@ function showWoorden(lijstId) {
 	$("#priveLijsten").hide();
 	$("#deleteWoorden").show();
 	//roep de volgende url aan met het lijstId dat van de button afkomt
-	$.get("/quizschoolapp/restservices/woordenlijsten/woorden/" + lijstId, function(woorden) {
+	$.get("/restservices/woordenlijsten/woorden/" + lijstId, function(woorden) {
 		$.each(woorden, function(i, woord) {
 			//defineer de onclick die meegegeven wordt aan de buttons
 			var deleteWoord = "onclick='deleteWoord("+woord.WoordId+", "+lijstId+")'"
@@ -95,7 +95,7 @@ function showWoorden(lijstId) {
 
 function deleteWoord(woordId, lijstId) {
 	//roep de volgende url aan met het id dat van de button afkomt
-	var uri = "/quizschoolapp/restservices/woordenlijsten/deleteWoord/" + woordId;
+	var uri = "/restservices/woordenlijsten/deleteWoord/" + woordId;
 	$.ajax(uri, {
 		type: "DELETE",
 		//voor de request gestuurd wordt stuur eerst de token om te kijken of de gebruiker dit wel mag
@@ -128,7 +128,7 @@ function showInsert(taal1, taal2) {
 
 $("#volgendeWoord").click(function() {
 	//defineer de url waar het formulier naar toe gestuurd moet worden
-	var uri = "/quizschoolapp/restservices/woordenlijsten/insertWoord";
+	var uri = "/restservices/woordenlijsten/insertWoord";
 	$.ajax({
 		type: "POST",
 		url: uri,
@@ -156,7 +156,7 @@ $("#volgendeWoord").click(function() {
 
 $("#opslaan").click(function() {
 	//defineer de url waar het formulier naar toe gestuurd moet worden
-	var uri = "/quizschoolapp/restservices/woordenlijsten/insertWoord";
+	var uri = "/restservices/woordenlijsten/insertWoord";
 	$.ajax({
 		type: "POST",
 		url: uri,

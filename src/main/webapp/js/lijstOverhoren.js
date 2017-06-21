@@ -34,7 +34,7 @@ $("#taal1").click(function() {
 	//zet de waarde van het invoerveld
 	$("#taal").val(window.sessionStorage.getItem("Taal1") + " naar " + window.sessionStorage.getItem("Taal2"));
 	//roep de volgende url aan met het id van de button
-	var uri = "/quizschoolapp/restservices/woordenlijsten/woordenVersie1/" + id;
+	var uri = "/restservices/woordenlijsten/woordenVersie1/" + id;
 	$.get(uri, function(data) {
 		//voeg de data toe aan een arraylist
 		woorden = data;
@@ -47,7 +47,7 @@ $("#taal2").click(function() {
 	//zet de waarde van het invoerveld
 	$("#taal").val(window.sessionStorage.getItem("Taal2") + " naar " + window.sessionStorage.getItem("Taal1"));
 	//roep de volgende url aan met het id van de button
-	var uri2 = "/quizschoolapp/restservices/woordenlijsten/woordenVersie2/" + id;
+	var uri2 = "/restservices/woordenlijsten/woordenVersie2/" + id;
 	$.get(uri2, function(data) {
 		//voeg de woorden aan een arraylist toe
 		woorden = data;

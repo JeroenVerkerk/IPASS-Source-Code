@@ -17,6 +17,7 @@ public class ScoreDao extends BaseDao {
 		// maak verbinding met de database via de BaseDao
 		try (Connection conn = super.getConnection()) {
 			Statement stmt = conn.createStatement();
+			System.out.println(query);
 			ResultSet rs = stmt.executeQuery(query);
 
 			while (rs.next()) {

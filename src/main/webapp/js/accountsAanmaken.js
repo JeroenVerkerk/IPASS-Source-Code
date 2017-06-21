@@ -1,6 +1,6 @@
 $("#leerlingAanmaken").click(function() {
 	//haal alle klassen uit de database
-	$.get("http://localhost:4711/quizschoolapp/restservices/klassen",function(data) {
+	$.get("/restservices/klassen",function(data) {
 		//voer de volgende functies uit voor elk resultaat dat terug gestuurd wordt
 		$.each(data, function(i, klas) {
 			var code = klas.KlasCode
@@ -16,7 +16,7 @@ $("#leerlingAanmaken").click(function() {
 
 $("#leerlingOpslaan").click(function() {
 	//defineer de url waar de post naar toe gestuurd moet worden
-	var uri = "/quizschoolapp/restservices/accounts/createLeerling";
+	var uri = "/restservices/accounts/createLeerling";
 	$.ajax({
 		url : uri,
 		type : "POST",
@@ -43,7 +43,7 @@ $("#leerlingOpslaan").click(function() {
 
 $("#volgendeLeerling").click(function() {
 	//defineer de url waar het formulier naar toe gestuurd moet worden
-	var uri = "/quizschoolapp/restservices/accounts/createLeerling";
+	var uri = "/restservices/accounts/createLeerling";
 	$.ajax({
 		url : uri,
 		type : "POST",
@@ -102,7 +102,7 @@ $("#docentAanmaken").click(function() {
 
 $("#docentOpslaan").click(function() {
 	//defineer de url waar het formulier naar toe gestuurd moet worden
-	var uri = "/quizschoolapp/restservices/accounts/createDocent";
+	var uri = "/restservices/accounts/createDocent";
 	$.ajax({
 		url : uri,
 		type : "POST",
@@ -129,7 +129,7 @@ $("#docentOpslaan").click(function() {
 
 $("#volgendeDocent").click(function() {
 	//defineer de url waar het formulier naar toe gestuurd moet worden
-	var uri = "/quizschoolapp/restservices/accounts/createDocent";
+	var uri = "/restservices/accounts/createDocent";
 	$.ajax({
 		url : uri,
 		type : "POST",

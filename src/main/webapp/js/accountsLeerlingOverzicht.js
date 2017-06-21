@@ -5,7 +5,7 @@ $("#leerlingOverzicht").click(function() {
 	$("#leerlingFilters").show();
 	$("#leerlingOverzichtTable").show();
 	//roep de volgende url aan
-	$.get("http://localhost:4711/quizschoolapp/restservices/leerlingen", function(data) {
+	$.get("/restservices/leerlingen", function(data) {
 		//doe het volgende voor elk resultaat dat terug gestuurd wordt
 		$.each(data, function(i, leerling) {
 			var naam = leerling.Naam+' '+leerling.Achternaam;
@@ -20,7 +20,7 @@ $("#leerlingOverzicht").click(function() {
 
 function getLeerling(leerlingnummer) {
 	//roep de volgende url aan
-	$.get("http://localhost:4711/quizschoolapp/restservices/leerlingen/leerling/"+leerlingnummer, function(data){
+	$.get("/restservices/leerlingen/leerling/"+leerlingnummer, function(data){
 		//sla de inlognaam op en roep functie delete leerling aan
 		var inlognaam = data.Inlognaam;
 		deleteLeerling(leerlingnummer, inlognaam)
@@ -29,7 +29,7 @@ function getLeerling(leerlingnummer) {
 
 function deleteLeerling(leerlingnummer, inlognaam) {
 	//defineer de url waar de delete request naar toe gestuurd wordt
-	var uri = "http://localhost:4711/quizschoolapp/restservices/accounts/"+inlognaam+"/"+leerlingnummer;
+	var uri = "/restservices/accounts/"+inlognaam+"/"+leerlingnummer;
 	$.ajax(uri, {
 		type: "DELETE",
 		//voordat de request gestuurd wordt stuur eerst de token om te kijken of de gebruiker wel mag deleten
@@ -51,7 +51,7 @@ function deleteLeerling(leerlingnummer, inlognaam) {
 
 function getUpdateLeerling(leerlingnummer) {
 	//roep de volgende url aan
-	$.get("http://localhost:4711/quizschoolapp/restservices/leerlingen/leerling/"+leerlingnummer, function(data) {
+	$.get("/restservices/leerlingen/leerling/"+leerlingnummer, function(data) {
 		//sla de gegevens die worden meegestuurd op in een variabele
 		var klas = data.KlasCode;
 		var profiel = data.Profiel;
@@ -64,7 +64,7 @@ function getUpdateLeerling(leerlingnummer) {
 		var geboortedatum = data.Geboortedatum;
 		
 		//roep de volgende url aan met de inlognaam ide hierboven verkregen is
-		$.get("http://localhost:4711/quizschoolapp/restservices/accounts/"+inlognaam, function(account) {
+		$.get("/restservices/accounts/"+inlognaam, function(account) {
 			var role= account.Rol
 			var wachtwoord = account.Wachtwoord;
 			
@@ -76,7 +76,7 @@ function getUpdateLeerling(leerlingnummer) {
 
 function showUpdateLeerling(leerlingnummer, klas, profiel, niveau, naam, achternaam, postcode, woonplaats, inlognaam, role, wachtwoord, geboortedatum) {
 	//roep de volgende url aan
-	$.get("http://localhost:4711/quizschoolapp/restservices/klassen", function(data) {
+	$.get("/restservices/klassen", function(data) {
 		$.each(data, function(i, klas) {
 			//voeg voor elke klas een nieuwe optie toe
 			var code = klas.KlasCode
@@ -107,7 +107,7 @@ function showUpdateLeerling(leerlingnummer, klas, profiel, niveau, naam, achtern
 $("#updateLeerling").click(function(){
 	$("#insertLeerling").hide();
 	//defineer de url waar het formulier naar toe gestuurd moet worden
-	var uri = "http://localhost:4711/quizschoolapp/restservices/accounts/updateLeerling/" + $("#insertInlognaam").val();
+	var uri = "/restservices/accounts/updateLeerling/" + $("#insertInlognaam").val();
 	
 	$.ajax(uri, {
 		type: "PUT",

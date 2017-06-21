@@ -57,12 +57,12 @@ function formatDate(date) {
 	var jaar = date.getFullYear();
 	
 	//maak van de gegevens hierboven een datum die de database kan lezen
-	return dag + '-' + maand + '-' + jaar;
+	return jaar + '-' + maand + '-' + dag;
 }
 
 function insertScore() {
 	//defineer de url waar het formulier naar toe gestuurd moet worden
-	var uri = "/quizschoolapp/restservices/scores";
+	var uri = "/restservices/scores";
 	$.ajax({
 		url: uri,
 		type: "POST",
