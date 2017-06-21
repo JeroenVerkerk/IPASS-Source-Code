@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="css/quizMaken.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quiz Maken</title>
+</head>
+<body>
+<div id="header">
+	<i id="menu" onclick="openNav()" class="fa fa-bars"></i>
+    <h1 id="title"></h1>
+</div>
+<div id="mySidenav" class="sidenav">
+  <a id="close" href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+  <a href="home.html"><i class="fa fa-home"> Home</i></a>
+  <a id="quizCreator" href="quizCreator.html"><i class="fa fa-plus"> Quiz Maken</i></a> 
+  <a href="quizOverzicht.html" id="leerling"><i class="fa fa-question-circle"> Quiz Overzicht</i></a>
+  <a href="docentQuizOverzicht.html" id="docent"><i class="fa fa-question-circle"> Quiz Overzicht</i></a> 
+  <a href="scoreOverzicht.html" id="leerlingScore"><i class="fa fa-list"> Cijfer Overzicht</i></a>
+  <a href="docentScoreOverzicht.html" id="docentScore"><i class="fa fa-list">Cijfer Overzicht</i></a> 
+</div>
+<div id="main">
+<div id="border" style="display:none;">
+<div id="quiz">
+</div>
+<div id="buttons">
+<button id="nextQuestion" style="display:none;">Volgende Vraag</button>
+<button id="controleren" style="display:none;">Resultaat Bekijken</button>
+</div>
+</div>
+<table>
+<tr>
+	<td><input type="text" id="quizNaam" readonly/></td>
+<tr>
+<tr>
+	<td><input type="text" id="timeText" readonly/></td>
+</tr>
+<tr>
+	<td><button id="startButton" style="vertical-align:middle"><span id="hover">Start Quiz</span></button></td>
+</tr>
+</table>
+</div>
+</body>
+<script src="https://code.jquery.com/jquery-3.2.0.min.js"></script>
+<script>
+var role = window.sessionStorage.getItem("Role");
+var questions = [];
+var fouteVragen = [];
+var count = 1;
+var punten = 0;
+var test = [];
+
+function initPage() {
+	if (role == "leerling") {
+		$("#quizCreator").hide();
+		$("#docent").hide();
+		$("#docentScore").hide();
+	}
+	else if (role == "docent") {
+		$("#leerling").hide();
+		$("#leerlingScore").hide();
+	}
+	var id = window.sessionStorage.getItem("QuizId");
+	$("#title").text(window.sessionStorage.getItem("QuizNaam"));
+	var uri = "/restservices/quizzes/question/" + id;
+	var uri2 = "/restservices/quizzes/" + id;
+	$.get(uri, function(data) {
+		questions = data;
+		console.log(questions);
+	});
+	start();
+}
+
+$("#startButton").click(function() {
+	console.log(window.sessionStorage.getItem("QuizId"));
+	$("#border").show();
+	$("#quiz").append("<textarea id='question' readonly>"+questions[0].Question+"</textarea><br>");
+	var id = questions[0].QuestionId;
+	var uri = "/restservices/quizzes/answer/" + id;
+	$.get(uri, function(data) {
+		$.each(data, function(i, answer) {
+			var a = answer.Answer
+			var correct = answer.IsCorrect;
+			var appended = "<input type='radio' class='answers' name="+questions[0].QuestionId+" value="+correct+">"+a+"<BR>";
+			return $(appended).appendTo("#quiz");
+		});
+	});
+	$("#quizNaam").hide();
+	$("#timeText").hide();
+	$("#startButton").hide();
+	$("#nextQuestion").show();
+});
+
+$("#nextQuestion").click(function() {
+	berekenPunten();
+	var id = questions[count].QuestionId;
+	if (questions.length == count + 1) {
+		$("#nextQuestion").hide();
+		$("#controleren").show();
+		var uri = "/restservices/quizzes/answer/" + id;
+		$("#quiz").empty();
+		$("#quiz").append("<textarea id='question' readonly>"+questions[count].Question+"</textarea><br>");
+		$.get(uri, function(data) {
+			$.each(data, function(i, answer) {
+				var a = answer.Answer
+				var correct = answer.IsCorrect;
+				var appended = "<input type='radio' class='answers' name="+questions[count].QuestionId+" value="+correct+">"+a+"<BR>";
+				return $(appended).appendTo("#quiz");
+			});
+		});
+	}
+	else {
+		var uri = "/restservices/quizzes/answer/" + id;
+		$("#quiz").empty();
+		$("#quiz").append("<textarea id='question' readonly>"+questions[count].Question+"</textarea><br>");
+		$.get(uri, function(data) {
+			$.each(data, function(i, answer) {
+				var a = answer.Answer
+				var correct = answer.IsCorrect;
+				var appended2 = "<input type='radio' class='answers' name="+questions[count].QuestionId+" value="+correct+">"+a+"<BR>";
+				return $(appended2).appendTo("#quiz");
+			});
+			count ++;
+		});
+	}
+});
+
+$("#controleren").click(function() {
+	berekenPunten();
+	window.sessionStorage.setItem("Punten", punten);
+	window.sessionStorage.setItem("fouteVragen", JSON.stringify(fouteVragen));
+	window.sessionStorage.setItem("aantalVragen", questions.length);
+	window.sessionStorage.setItem("ScoreQuizId", window.sessionStorage.getItem("QuizId"));
+	window.location.href = 'Resultaat.html';
+
+});
+function berekenPunten() {
+	var answer = $(".answers:checked").val();
+ 	if (answer == "true") {
+ 		punten = punten + 1;
+ 	}
+ 	else {
+ 		fouteVragen.push(questions[count - 1].Question);
+ 	}
+}
+
+function start() {
+	$("#quizNaam").val(window.sessionStorage.getItem("QuizNaam"));
+	$("#timeText").val("Er is geen tijd bij deze quiz.");
+}
+
+/* Set the width of the side navigation to 250px */
+function openNav() {
+    document.getElementById("mySidenav").style.width = "250px";
+    document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
+}
+
+/* Set the width of the side navigation to 0 */
+function closeNav() {
+    document.getElementById("mySidenav").style.width = "0";
+    document.body.style.backgroundColor = "white";
+}
+
+window.onload = initPage()
+</script>
+</html>

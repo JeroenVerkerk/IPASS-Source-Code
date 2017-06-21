@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="css/quizOverzicht.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quiz Overzicht</title>
+</head>
+<body>
+<div id="header">
+	<i id="menu" onclick="openNav()" class="fa fa-bars"></i>
+    <h1>Quiz Overzicht</h1>
+</div>
+<div id="mySidenav" class="sidenav">
+  <a id="close" href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+  <a href="home.html"><i class="fa fa-home"> Home</i></a>
+  <a id="quizCreator" href="quizCreator.html"><i class="fa fa-plus"> Quiz Maken</i></a> 
+  <a class="active" href="quizOverzicht.html" id="leerling"><i class="fa fa-question-circle"> Quiz Overzicht</i></a>
+  <a href="docentQuizOverzicht.html" id ="docent"><i class="fa fa-question-circle"> Quiz Overzicht</i></a>  
+  <a href="scoreOverzicht.html" id="leerlingScore"><i class="fa fa-list"> Cijfer Overzicht</i></a>
+  <a href="docentScoreOverzicht.html" id="docentScore"><i class="fa fa-list">Cijfer Overzicht</i></a> 
+</div>
+<div id="main">
+<table id="filters">
+	<tr>
+		<td><input type="text" onkeyup="sortQuizNaam()" id="filterNaam" class="filter" placeholder="Zoek op Quiz Naam..."/></td>
+		<td><input type="text" onkeyup="sortVak()" id="filterVak" class="filter" placeholder="Zoek op Vak..."/></td>
+		<td><input type="text" onkeyup="sortDocent()" id="filterDocent"class="filter" placeholder="Zoek op Docent..."/></td>
+		<td><input type="text" onkeyup="sortNiveau()" id="filterNiveau" class="filter" placeholder="Zoek op Niveau..."/></td>
+	</tr>
+</table>
+<table id="quizzes">
+<thead>
+	<tr>
+		<th>Quiz Naam</th>
+		<th>Vak</th>
+		<th>Docent</th>
+		<th>Niveau</th>
+		<th>Start Quiz</th>
+	</tr>
+</thead>
+<tbody></tbody>
+</table>
+<div id="small" style="display:none">
+		<select id="vak" placeholder="Selecteer vak">
+			<option value="Geschiedenis">Geschiedenis</option>
+			<option value="Biologie">Biologie</option>
+		</select>
+		<select id="niveau" placeholder="Selecteer niveau">
+			<option value="HAVO">HAVO</option>
+		</select>
+		<button id="selecteer">Zoek</button>
+</div>
+<div id="zoekDiv" style="display:none">
+	<button id="zoek">Zoek..</button>
+</div>
+</div>
+</body>
+<script src="https://code.jquery.com/jquery-3.2.0.min.js"></script>
+<script>
+var role = window.sessionStorage.getItem("Role");
+function initPage() {
+	if (role == "leerling") {
+		$("#quizCreator").hide();
+		$("#docent").hide();
+		$("#docentScore").hide();
+	}
+	else if (role == "docent") {
+		$("#leerling").hide();
+		$("#leerlingScore").hide();
+	}
+	if ($(window).width() < 1024) {
+		$("#quizzes").hide();
+		$("#small").show();
+	}
+	else {
+		$.get("/restservices/quizzes", function(data) {
+			$.each(data, function(i, quiz) {
+				var quizId = quiz.QuizId;
+				var naam = quiz.Naam;
+				var vak = quiz.Vak;
+				var gemaaktDoor = quiz.Gemaakt_Door
+				var niveau = quiz.Niveau;
+				var test = '"';
+				var link = "onclick='showQuiz("+quiz.QuizId+","+test+naam+test+")'";
+				$("#quizzes").append("<tr><td>" + naam + "</td><td>" + vak + "</td><td>" + gemaaktDoor + "</td><td>" + niveau + "</td><td><button "+link+">Start Quiz</td></tr>");
+			});
+		});
+	}
+}
+
+function showQuiz(quizId, quizNaam) {
+	window.sessionStorage.setItem("QuizId", quizId);
+	window.sessionStorage.setItem("QuizNaam", quizNaam);
+	window.location.href = 'quizMaken.html';
+}
+
+/* Set the width of the side navigation to 250px */
+function openNav() {
+    document.getElementById("mySidenav").style.width = "250px";
+    document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
+}
+
+/* Set the width of the side navigation to 0 */
+function closeNav() {
+    document.getElementById("mySidenav").style.width = "0";
+    document.body.style.backgroundColor = "white";
+}
+
+function sortQuizNaam() {
+	  // Declare variables 
+	  var input, filter, table, tr, td, i;
+	  input = document.getElementById("filterNaam");
+	  filter = input.value.toUpperCase();
+	  table = document.getElementById("quizzes");
+	  tr = table.getElementsByTagName("tr");
+
+	  // Loop through all table rows, and hide those who don't match the search query
+	  for (i = 0; i < tr.length; i++) {
+	    td = tr[i].getElementsByTagName("td")[0];
+	    if (td) {
+	      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+	        tr[i].style.display = "";
+	      } else {
+	        tr[i].style.display = "none";
+	      }
+	    } 
+	  }
+	}
+	
+function sortVak() {
+	  // Declare variables 
+	  var input, filter, table, tr, td, i;
+	  input = document.getElementById("filterVak");
+	  filter = input.value.toUpperCase();
+	  table = document.getElementById("quizzes");
+	  tr = table.getElementsByTagName("tr");
+
+	  // Loop through all table rows, and hide those who don't match the search query
+	  for (i = 0; i < tr.length; i++) {
+	    td = tr[i].getElementsByTagName("td")[1];
+	    if (td) {
+	      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+	        tr[i].style.display = "";
+	      } else {
+	        tr[i].style.display = "none";
+	      }
+	    } 
+	  }
+	}
+	
+function sortDocent() {
+	  // Declare variables 
+	  var input, filter, table, tr, td, i;
+	  input = document.getElementById("filterDocent");
+	  filter = input.value.toUpperCase();
+	  table = document.getElementById("quizzes");
+	  tr = table.getElementsByTagName("tr");
+
+	  // Loop through all table rows, and hide those who don't match the search query
+	  for (i = 0; i < tr.length; i++) {
+	    td = tr[i].getElementsByTagName("td")[2];
+	    if (td) {
+	      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+	        tr[i].style.display = "";
+	      } else {
+	        tr[i].style.display = "none";
+	      }
+	    } 
+	  }
+	}
+	
+function sortNiveau() {
+	  // Declare variables 
+	  var input, filter, table, tr, td, i;
+	  input = document.getElementById("filterNiveau");
+	  filter = input.value.toUpperCase();
+	  table = document.getElementById("quizzes");
+	  tr = table.getElementsByTagName("tr");
+
+	  // Loop through all table rows, and hide those who don't match the search query
+	  for (i = 0; i < tr.length; i++) {
+	    td = tr[i].getElementsByTagName("td")[3];
+	    if (td) {
+	      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+	        tr[i].style.display = "";
+	      } else {
+	        tr[i].style.display = "none";
+	      }
+	    } 
+	  }
+	}
+	
+$("#selecteer").click(function() {
+	var vak = $("#vak").val();
+	var niveau = $("#niveau").val();
+	$("#small").hide();
+	
+	$.get("/restservices/quizzes/overzicht/"+vak+"/"+niveau, function(data) {
+		$.each(data, function(i, quiz) {
+			var naam = quiz.Naam;
+			var vak = quiz.Vak;
+			var gemaaktDoor = quiz.Gemaakt_Door
+			var niveau = quiz.Niveau;
+			var test = '"';
+			var link = "onclick='showQuiz("+quiz.QuizId+","+test+naam+test+")'";
+			$("#quizzes").append("<tr><td>" + naam + "</td><td>" + vak + "</td><td>" + gemaaktDoor + "</td><td>" + niveau + "</td><td><button "+link+">Start Quiz</td></tr>")
+		});
+	});
+	$("#zoekDiv").show();
+	$("#quizzes").show();
+});
+
+$("#zoek").click(function() {
+	$("#zoekDiv").hide();
+	$("#quizzes").hide();
+	$("#quizzes").empty();
+	$("#small").show();
+});
+
+window.onload = initPage;
+</script>
+</html>

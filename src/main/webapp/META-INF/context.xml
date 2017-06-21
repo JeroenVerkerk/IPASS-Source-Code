@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context>
+ <Resource name="jdbc/PostgresDS"
+ url="jdbc:postgresql:ec2-54-75-231-195.eu-west-1.compute.amazonaws.com:5432/d61uceb6k7stta"
+ driverClassName="org.postgresql.Driver"
+ auth="Container"
+ type="javax.sql.DataSource"
+ username="sqewrckdajchfu"
+ password="a7d66cb968d321e3cd4d6b6dfa6c118eceb880d600fe1559415316ed60fa3470" />
+</Context>

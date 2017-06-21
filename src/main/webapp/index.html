@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="css/login.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Login</title>
+</head>
+<body>
+	<div class="titel">
+		<h1>Cals IJsselstein Login</h1>
+	</div>
+	<div class="container">
+		<div class="inner">
+			<h1>Login</h1>
+			<h3>Voer je Gebruikersnaam en Wachtwoord in</h3>
+
+			<form id="loginform">
+				<br> <label><span class="glyphicon glyphicon-user"></span></label>
+				<input type="text" placeholder='Gebruikersnaam' class="input" name="username" id="username" />
+				<br>
+				<label><span class="glyphicon glyphicon-lock"></span></label> 
+				<input type="password" placeholder="Wachtwoord" class="input" name="password" id="password" />
+				<br>
+				<button type="button" id="login">Login</button>
+			</form>
+		</div>
+	</div>
+</body>
+<script src="https://code.jquery.com/jquery-3.2.0.min.js"></script>
+<script>
+function initPage() {
+	window.sessionStorage.clear();
+}
+
+$("#login").click(function(event) {
+	var data = $("#loginform").serialize();
+	$.post("restservices/authentication", data, function(response) {
+		window.sessionStorage.setItem("sessionToken", response);
+		setTimeout(function() {
+	 		window.location.href = 'home.html';
+	 	}, 600);
+	}).fail(function(jqXHR, textStatus, errorThrown) {
+		console.log(textStatus);
+		console.log(errorThrown);
+	});
+	
+	setTimeout(function() {
+		var inlognaam = $("#username").val();
+	 	$.get("/restservices/accounts/" + inlognaam, function(data) {
+	 		window.sessionStorage.setItem("Role", data.Rol);
+	 		if (data.Rol == "leerling") {
+	 			$.get("/restservices/leerlingen/" + inlognaam, function(leerling) {
+	 				window.sessionStorage.setItem("Leerlingnummer", leerling.Leerlingnummer);
+	 				console.log(window.sessionStorage.getItem("Leerlingnummer"));
+	 			});
+	 		}
+	 		else if(data.Rol == "docent") {
+	 			$.get("/restservices/docenten/" + inlognaam, function(docent) {
+	 				window.sessionStorage.setItem("DocentNaam", docent.Naam +" "+ docent.Achternaam);
+	 				console.log(window.sessionStorage.getItem("DocentNaam"));
+	 			});
+	 		}
+	 	});
+	}, 400);
+	
+});
+
+
+window.onload = initPage;
+</script>
+</html>

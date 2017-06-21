@@ -1,0 +1,233 @@
+body {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	vertical-align: baseline;
+}
+
+h1 {
+	color: white;
+	font-family: arial;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	vertical-align: baseline;
+	background-color: #D52B1E;
+	float: left;
+	width: 96%;
+	text-align: center;
+	border-bottom: 3px solid #D52B1E;
+}
+
+#menu {
+	background-color: #D52B1E;
+	float: left;
+	width: 4%;
+	text-align: left;
+	font-size: 40px;
+}
+
+#menu:hover {
+	cursor: pointer;
+}
+
+#top {
+	display: table-row;
+}
+
+.sidenav {
+	height: 100%; /* 100% Full-height */
+	width: 0; /* 0 width - change this with JavaScript */
+	position: fixed; /* Stay in place */
+	z-index: 1; /* Stay on top */
+	top: 0;
+	left: 0;
+	background-color: #D52B1E; /* Black*/
+	overflow-x: hidden; /* Disable horizontal scroll */
+	padding-top: 60px; /* Place content 60px from the top */
+	transition: 0.5s;
+	/* 0.5 second transition effect to slide in the sidenav */
+}
+
+/* The navigation menu links */
+.sidenav a {
+	padding: 8px 8px 8px 32px;
+	text-decoration: none;
+	font-size: 25px;
+	color: white;
+	display: block;
+	transition: 0.3s
+}
+
+#close:hover, #close:focus {
+	background-color: #D52B1E;
+	color: black;
+}
+
+.closebtn:hover, .closebtn:focus {
+	background-color: #D52B1E;
+	color: black;
+}
+/* When you mouse over the navigation links, change their color */
+.sidenav a:hover, .offcanvas a:focus {
+	color: #f1f1f1;
+	background-color: white;
+	color: black;
+}
+
+/* Position and style the close button (top right corner) */
+.sidenav .closebtn {
+	position: absolute;
+	top: 0;
+	right: 25px;
+	font-size: 36px;
+	margin-left: 50px;
+}
+
+/* Style page content - use this if you want to push the page content to the right when you open the side navigation */
+#main {
+	transition: margin-left .5s;
+	padding: 20px;
+}
+
+/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+@media screen and (max-height: 450px) {
+	.sidenav {
+		padding-top: 15px;
+	}
+	.sidenav a {
+		font-size: 18px;
+	}
+}
+
+.active {
+	background-color: white;
+}
+
+a.active {
+	color: black;
+}
+
+table {
+	margin-top: 3%;
+	margin-left: 12%;
+	width: 80%;
+	border-collapse: collapse;
+}
+
+#quizzes {
+	margin-top: 1%;
+	max-height: 700px;
+}
+
+tr:nth-of-type(odd) {
+	background: #eee;
+}
+
+th {
+	background: #333;
+	color: white;
+	font-weight: bold;
+}
+
+td, th {
+	padding: 6px;
+	border: 1px solid #ccc;
+	text-align: left;
+}
+
+#filters {
+	border-collapse: collapse;
+	width: 80%;
+}
+
+.filterRow {
+	padding: none;
+	border: none;
+	font-weight: none;
+}
+
+@media only screen and (max-width: 760px) , ( min-device-width : 768px)
+	and (max-device-width: 1024px) {
+	/* Zorg dat de tabel er niet meer uitziet zoals een tabel */
+	table, thead, tbody, th, td, tr {
+		display: block;
+		margin-left: 8%;
+	}
+	#filters {
+		display: none;
+	}
+	.filter {
+		width: 175px;
+		font-size: 2px;
+		text-align: left;
+	}
+	#quizzes {
+		margin-top: 10%;
+	}
+
+	/* Verberg de headers */
+	thead tr {
+		position: absolute;
+		top: -9999px;
+		left: -9999px;
+	}
+	#quizzes tr {
+		border: 1px solid #ccc;
+	}
+	#quizzes td {
+		/* Laat het gedragen zoals een "rij" */
+		border: none;
+		border-bottom: 1px solid #eee;
+		position: relative;
+		padding-left: 50%;
+	}
+	#quizzes td:before {
+		/* En nu zoals een table header */
+		position: absolute;
+		/* Top/left values doen padding na */
+		top: 6px;
+		left: 6px;
+		width: 45%;
+		padding-right: 10px;
+		white-space: nowrap;
+	}
+
+	/*Geef de data een Label*/
+	#quizzes td:nth-of-type(1):before {
+		content: "Naam";
+	}
+	#quizzes td:nth-of-type(2):before {
+		content: "Cijfer";
+	}
+	#quizzes td:nth-of-type(3):before {
+		content: "Datum";
+	}
+}
+
+.filter {
+	box-sizing: border-box;
+	border: 2px solid #ccc;
+	border-radius: 4px;
+	font-size: 16px;
+	background-color: white;
+	padding: 12px 20px 12px 40px;
+	width: 100%;
+}
+
+.filter:focus {
+	border: 3px solid #555;
+	background-color: lightblue;
+}
+
+@media only screen and (max-width: 760px) {
+	h1 {
+		width: 90%;
+	}
+	
+	#menu {
+		width: 10%;
+	}
+}
