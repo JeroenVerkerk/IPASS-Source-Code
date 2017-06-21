@@ -2,7 +2,7 @@ package nl.hu.ipass.quizschoolapp.webservices;
 
 public class Leerling {
 	private int leerlingnummer;
-	private Klas klascode;
+	private String klascode;
 	private String profiel;
 	private String niveau;
 	private String naam;
@@ -10,10 +10,11 @@ public class Leerling {
 	private String geboortedatum;
 	private String postcode;
 	private String woonplaats;
-	private Account inlognaam;
+	private String inlognaam;
 	
-	public Leerling (int lrn,String profiel, String niveau, String naam, String achternaam, String geboortedatum, String postcode, String woonplaats) {
+	public Leerling (int lrn, String klascode, String profiel, String niveau, String naam, String achternaam, String geboortedatum, String postcode, String woonplaats, String inlognaam) {
 		this.leerlingnummer = lrn;
+		this.klascode = klascode;
 		this.profiel = profiel;
 		this.niveau = niveau;
 		this.naam = naam;
@@ -21,6 +22,7 @@ public class Leerling {
 		this.geboortedatum = geboortedatum;
 		this.postcode = postcode;
 		this.woonplaats = woonplaats;
+		this.inlognaam = inlognaam;
 	}
 
 	public int getLeerlingnummer() {
@@ -31,11 +33,11 @@ public class Leerling {
 		this.leerlingnummer = leerlingnummer;
 	}
 
-	public Klas getKlascode() {
+	public String getKlascode() {
 		return klascode;
 	}
 
-	public void setKlascode(Klas klascode) {
+	public void setKlascode(String klascode) {
 		this.klascode = klascode;
 	}
 
@@ -95,11 +97,11 @@ public class Leerling {
 		this.woonplaats = woonplaats;
 	}
 
-	public Account getInlognaam() {
+	public String getInlognaam() {
 		return inlognaam;
 	}
 
-	public void setInlognaam(Account inlognaam) {
+	public void setInlognaam(String inlognaam) {
 		this.inlognaam = inlognaam;
 	}
 	

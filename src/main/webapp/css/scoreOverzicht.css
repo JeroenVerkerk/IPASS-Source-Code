@@ -110,6 +110,10 @@ a.active {
 	color: black;
 }
 
+#woordenlijsten {
+	margin-top: 1%;
+}
+
 table {
 	margin-top: 3%;
 	margin-left: 12%;
@@ -119,7 +123,6 @@ table {
 
 #quizzes {
 	margin-top: 1%;
-	max-height: 700px;
 }
 
 tr:nth-of-type(odd) {
@@ -159,6 +162,10 @@ td, th {
 	#filters {
 		display: none;
 	}
+	
+	#woordenlijstFilters {
+		display: none;
+	}
 	.filter {
 		width: 175px;
 		font-size: 2px;
@@ -194,6 +201,27 @@ td, th {
 		padding-right: 10px;
 		white-space: nowrap;
 	}
+	
+	#woordenlijsten tr {
+		border: 1px solid #ccc;
+	}
+	#woordenlijsten td {
+		/* Laat het gedragen zoals een "rij" */
+		border: none;
+		border-bottom: 1px solid #eee;
+		position: relative;
+		padding-left: 50%;
+	}
+	#woordenlijsten td:before {
+		/* En nu zoals een table header */
+		position: absolute;
+		/* Top/left values doen padding na */
+		top: 6px;
+		left: 6px;
+		width: 45%;
+		padding-right: 10px;
+		white-space: nowrap;
+	}
 
 	/*Geef de data een Label*/
 	#quizzes td:nth-of-type(1):before {
@@ -203,6 +231,16 @@ td, th {
 		content: "Cijfer";
 	}
 	#quizzes td:nth-of-type(3):before {
+		content: "Datum";
+	}
+	
+	#woordenlijsten td:nth-of-type(1):before {
+		content: "Lijst Naam";
+	}
+	#woordenlijsten td:nth-of-type(2):before {
+		content: "Cijfer";
+	}
+	#woordenlijsten td:nth-of-type(3):before {
 		content: "Datum";
 	}
 }

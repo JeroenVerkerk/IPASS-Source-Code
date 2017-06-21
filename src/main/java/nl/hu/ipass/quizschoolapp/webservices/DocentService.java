@@ -5,8 +5,10 @@ import java.util.List;
 import nl.hu.ipass.quizschoolapp.persistence.DocentDao;
 
 public class DocentService {
+	//maak nieuwe dao's aan
 	private DocentDao docentDao = new DocentDao();
 	
+	//haal de functies uit de dao's zodat ze te gebruiken zijn in de resources
 	public List<Docent> getAllDocenten() {
 		return docentDao.findAll();
 	}

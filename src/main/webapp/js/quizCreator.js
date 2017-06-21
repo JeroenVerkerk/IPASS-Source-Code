@@ -1,33 +1,43 @@
 var role = window.sessionStorage.getItem("Role");
 function initPage() {
+	//verberg een aantal menu opties aan de hand van de rol
 	if (role == "leerling") {
 		$("#quizCreator").hide();
 		$("#docent").hide();
 		$("#docentScore").hide();
+		$("#accounts").hide();
 	}
 	else if (role == "docent") {
 		$("#leerling").hide();
 		$("#leerlingScore").hide();
+		$("#lijstMaken").hide();
+		$("#lijstOverzicht").hide();
+		$("#openbareLijsten").hide();
+		$("#accounts").hide();
 	}
 	
+	//haal de docentnaam op uit de sessionStorage
 	$("#gemaaktDoorInsert").val(window.sessionStorage.getItem("DocentNaam"));
 }
 
 $("#insertSubmit").click(function() {
 	var modal = $('#modalSuccess').plainModal();
 	var modal2 = $('#modalError').plainModal();
-	var uri = "/restservices/quizzes";
+	//defineer de url waar het formulier naar toe gestuurd moet worden
+	var uri = "/quizschoolapp/restservices/quizzes";
 	$.ajax({
 		url: uri,
 		type: "POST",
+		//serialize het formulier als de data
 		data: $("#insertQuiz").serialize(),
+		//stuur voor het formulier eerst de token om te kijken of de gebruiker dit wel mag
 		beforeSend: function(xhr) {
 			var token = window.sessionStorage.getItem("sessionToken");
 			xhr.setRequestHeader( 'Authorization', 'Bearer ' + token);
-			console.log(token);
 		},
 		success: function() {
 			modal.plainModal('open');
+			//verberg het formulier en laat een ander formulier zien
 			$("#quizForm").hide();
 			$("#answerForm").show();
 			$("#naamInsert").val('');
@@ -47,18 +57,21 @@ $("#insertSubmit").click(function() {
 $("#submitAnswer").click(function() {
 	var modal = $('#modalSuccess').plainModal();
 	var modal2 = $('#modalError').plainModal();
-	var uri = "/restservices/quizzes/insertAnswer";
+	//defineer de url waar het formulier naar toe gestuurd moet worden
+	var uri = "/quizschoolapp/restservices/quizzes/insertAnswer";
 	$.ajax({
 		type: "post",
 		url: uri,
+		//serialize het formulier om het te versturen
 		data: $("#insertAnswer").serialize(),
+		//stuur voor het formulier eerst de token om te kijken of de gebruiker dit wel mag
 		beforeSend: function(xhr) {
 			var token = window.sessionStorage.getItem("sessionToken");
 			xhr.setRequestHeader( 'Authorization', 'Bearer ' + token);
-			console.log(token);
 		},
 		success: function(response) {
-			modal.plainModal('open');
+			window.alert("Quiz Opgeslagen");
+			//ga terug naar het beginscherm
 			window.location.href = 'home.html';
 			$("#naamInsert").val('');
 			$("#gemaaktDoorInsert").val('');
@@ -77,18 +90,21 @@ $("#submitAnswer").click(function() {
 $("#submitQuestion").click(function() {
 	var modal = $('#modalSuccess').plainModal();
 	var modal2 = $('#modalError').plainModal();
-	var uri = "/restservices/quizzes/insertQuestion";
+	//defineer de url waar het formulier naar toe gestuurd moet worden
+	var uri = "/quizschoolapp/restservices/quizzes/insertQuestion";
 	$.ajax({
 		type: "post",
 		url: uri,
+		//serialize het formulier om het te versturen
 		data: $("#insertQuestion").serialize(),
+		//stuur voor het formulier eerst de token om te kijken of de gebruiker dit wel mag
 		beforeSend: function(xhr) {
 			var token = window.sessionStorage.getItem("sessionToken");
 			xhr.setRequestHeader( 'Authorization', 'Bearer ' + token);
-			console.log(token);
 		},
 		success: function(response) {
-			modal.plainModal('open');
+			window.alert("Quiz Opgeslagen");
+			//ga terug naar het home scherm
 			window.location.href = 'home.html';
 			$("#naamInsert").val('');
 			$("#gemaaktDoorInsert").val('');
@@ -107,15 +123,17 @@ $("#submitQuestion").click(function() {
 $("#nextQuestion").click(function() {
 	var modal = $('#modalSuccess').plainModal();
 	var modal2 = $('#modalError').plainModal();
-	var uri = "/restservices/quizzes";
+	//defineer de url waar het formulier naar toe gestuurd moet worden
+	var uri = "/quizschoolapp/restservices/quizzes";
 	$.ajax({
 		type: "post",
 		url: uri,
+		//serialize het formulier om het te versturen
 		data: $("#insertQuiz").serialize(),
+		//stuur voor het formulier eerste de token om te kijken of de gebruiker dit wel mag
 		beforeSend: function(xhr) {
 			var token = window.sessionStorage.getItem("sessionToken");
 			xhr.setRequestHeader( 'Authorization', 'Bearer ' + token);
-			console.log(token);
 		},
 		success: function(response) {
 			modal.plainModal('open');
@@ -126,6 +144,7 @@ $("#nextQuestion").click(function() {
 			$("#answerInsert2").val('');
 			$("#questionInsert2").val('');
 			$("#answerInsert3").val('');
+			//verberg het formulier en laat een ander formulier zien
 			$("#quizForm").hide();
 			$("#questionForm").show();
 		},
@@ -138,18 +157,21 @@ $("#nextQuestion").click(function() {
 $("#nextQuestion2").click(function() {
 	var modal = $('#modalSuccess').plainModal();
 	var modal2 = $('#modalError').plainModal();
-	var uri = "/restservices/quizzes/insertAnswer";
+	//defineer de url waar het formulier naar toe gestuurd moet worden
+	var uri = "/quizschoolapp/restservices/quizzes/insertAnswer";
 	$.ajax({
 		type: "post",
 		url: uri,
+		//serialize het formulier om het te versturen
 		data: $("#insertAnswer").serialize(),
+		//stuur voor het formulier eerst de token om te kijken of de gebruiker dit wel mag
 		beforeSend: function(xhr) {
 			var token = window.sessionStorage.getItem("sessionToken");
 			xhr.setRequestHeader( 'Authorization', 'Bearer ' + token);
-			console.log(token);
 		},
 		success: function(response) {
 			modal.plainModal('open');
+			//verberg het formulier en laat een ander formulier zien
 			$("#answerForm").hide();
 			$("#questionForm").show();
 			$("#naamInsert").val('');
@@ -169,11 +191,14 @@ $("#nextQuestion2").click(function() {
 $("#nextAnswer").click(function() {
 	var modal = $('#modalSuccess').plainModal();
 	var modal2 = $('#modalError').plainModal();
-	var uri = "/restservices/quizzes/insertAnswer";
+	//defineer de url waar het formulier naar toe gestuurd moet worden
+	var uri = "/quizschoolapp/restservices/quizzes/insertAnswer";
 	$.ajax({
 		type: "post",
 		url: uri,
+		//serialize het formulier om het te versturen
 		data: $("#insertAnswer").serialize(),
+		//stuur voor het  formulier eerst de token om te kijken of de gebruiker dit wel mag
 		beforeSend: function(xhr) {
 			var token = window.sessionStorage.getItem("sessionToken");
 			xhr.setRequestHeader( 'Authorization', 'Bearer ' + token);
@@ -181,6 +206,7 @@ $("#nextAnswer").click(function() {
 		},
 		success: function(response) {
 			modal.plainModal('open');
+			//leeg de velden voor een nieuwe vraag
 			$("#naamInsert").val('');
 			$("#gemaaktDoorInsert").val('');
 			$("#questionInsert").val('');
@@ -198,11 +224,14 @@ $("#nextAnswer").click(function() {
 $("#nextQuestion3").click(function() {
 	var modal = $('#modalSuccess').plainModal();
 	var modal2 = $('#modalError').plainModal();
-	var uri = "/restservices/quizzes/insertQuestion";
+	//defineer de url waar het formulier naar toe gestuurd moet worden
+	var uri = "/quizschoolapp/restservices/quizzes/insertQuestion";
 	$.ajax({
 		type: "post",
 		url: uri,
+		//serialize het formulier om het te versturen
 		data: $("#insertQuestion").serialize(),
+		//stuur voor het formulier eerst de token om te kijken of de gebruiker dit wel mag
 		beforeSend: function(xhr) {
 			var token = window.sessionStorage.getItem("sessionToken");
 			xhr.setRequestHeader( 'Authorization', 'Bearer ' + token);
@@ -227,11 +256,14 @@ $("#nextQuestion3").click(function() {
 $("#nextAnswer2").click(function() {
 	var modal = $('#modalSuccess').plainModal();
 	var modal2 = $('#modalError').plainModal();
-	var uri = "/restservices/quizzes/insertQuestion";
+	//defineer de url waar het formulier naar toe gestuurd moet worden
+	var uri = "/quizschoolapp/restservices/quizzes/insertQuestion";
 	$.ajax({
 		type: "post",
 		url: uri,
+		//serialize het formulier zodat het verstuurt kan worden
 		data: $("#insertQuestion").serialize(),
+		//stuur voor het formulier eerst de token om te kijken of de gebruiker dit wel mag
 		beforeSend: function(xhr) {
 			var token = window.sessionStorage.getItem("sessionToken");
 			xhr.setRequestHeader( 'Authorization', 'Bearer ' + token);
@@ -239,6 +271,7 @@ $("#nextAnswer2").click(function() {
 		},
 		success: function(response) {
 			modal.plainModal('open');
+			//verberg het formulier en laat een ander formulier zien
 			$("#questionForm").hide();
 			$("#answerForm").show();
 			$("#naamInsert").val('');
@@ -257,21 +290,23 @@ $("#nextAnswer2").click(function() {
 
 $("#okClose").click(function() {
 	var modal = $('#modalSuccess').plainModal();
+	//sluit het modal
 	modal.plainModal('close');
 });
 
 $("#okClose2").click(function() {
 	var modal = $('#modalError').plainModal();
+	//sluit het modal
 	modal.plainModal('close');
 });
 
-/* Set the width of the side navigation to 250px */
+//zet de breedte van de navigatie op 250px
 function openNav() {
     document.getElementById("mySidenav").style.width = "250px";
     document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
 }
 
-/* Set the width of the side navigation to 0 */
+//zet de breedte van de navigatie op 0
 function closeNav() {
     document.getElementById("mySidenav").style.width = "0";
     document.body.style.backgroundColor = "white";

@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="css/accounts.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quiz Overzicht</title>
+</head>
+<body>
+<div id="header">
+	<i id="menu" onclick="openNav()" class="fa fa-bars"></i>
+    <h1>Accounts Beheren</h1>
+</div>
+<div id="mySidenav" class="sidenav">
+  <a id="close" href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+  <a href="home.html"><i class="fa fa-home"> Home</i></a>
+  <a id="quizCreator" href="quizCreator.html"><i class="fa fa-plus"> Quiz Maken</i></a> 
+  <a href="quizOverzicht.html" id="leerling"><i class="fa fa-question-circle"> Quiz Overzicht</i></a>
+  <a href="docentQuizOverzicht.html" id="docent"><i class="fa fa-question-circle"> Quiz Overzicht</i></a>  
+  <a href="scoreOverzicht.html" id="leerlingScore"><i class="fa fa-list"> Cijfer Overzicht</i></a>
+  <a href="docentScoreOverzicht.html" id="docentScore"><i class="fa fa-list"> Cijfer Overzicht</i></a>
+  <a href="lijstAanmaken.html" id="lijstMaken"><i class="fa fa-plus">Woordenlijst Maken</i></a>
+  <a href="lijstOverzicht.html" id="lijstOverzicht"><i class="fa fa-question-circle">Mijn Lijsten</i></a>
+  <a href="openbareLijsten.html" id="openbareLijsten"><i class="fa fa-question-circle">Openbare Lijsten</i></a>
+  <a href="accounts.html" id="accounts" class="active"><i class="fa fa-users">Accounts</i></a>
+  <a href="index.html"><i class="fa fa-sign-out">Logout</i></a>
+</div>
+<div id="main">
+<div id="choose">
+	<button id="leerlingAanmaken">Leerling Aanmaken</button>
+	<button id="docentAanmaken">Docent Aanmaken</button>	
+	<button id="leerlingOverzicht">Leerling Overzicht</button>
+	<button id="docentOverzicht">Docent Overzicht</button>
+</div>
+
+<table id="leerlingFilters" style="display:none;">
+	<tr>
+		<td><input type="text" onkeyup="sortLeerlingnummer()" id="filterLeerlingnummer" class="filter" placeholder="Zoek op Leerlingnummer..."/></td>
+		<td><input type="text" onkeyup="sortKlas()" id="filterKlas" class="filter" placeholder="Zoek op Klas..."/></td>
+		<td><input type="text" onkeyup="sortNaam()" id="filterNaam"class="filter" placeholder="Zoek op Naam..."/></td>
+		<td><input type="text" onkeyup="sortNiveau()" id="filterNiveau" class="filter" placeholder="Zoek op Niveau..."/></td>
+	</tr>
+</table>
+
+<form id="insertLeerling" style="display:none;">
+
+<table id="leerlingTable">
+<tr>
+	<th>Inlognaam</th>
+	<th>Role</th>
+	<th>Wachtwoord</th>
+</tr>
+<tr>
+	<td><input type="text" id="insertInlognaam" name="insertInlognaam"/></td>
+	<td><input type="text" id="insertRole" name="insertRole" value="leerling" readonly/></td>
+	<td><input type="text" id="insertWachtwoord" name="insertWachtwoord"/></td>
+</tr>
+<tr>
+	<th>Leerlingnummer</th>
+	<th>Klas</th>
+	<th>Profiel</th>
+</tr>
+<tr>
+	<td><input type="text" id="insertLeerlingnummer" name="insertLeerlingnummer"/></td>
+	<td><select id="insertKlas" name="insertKlas"></select></td>
+	<td><select id="insertProfiel" name="insertProfiel">
+			<option value="--">--</option>
+			<option value="E&M">E&M</option>
+			<option value="C&M">C&M</option>
+			<option value="NG">NG</option>
+			<option value="NT">NT</option>
+		</select></td>
+</tr>
+<tr>
+	<th>Niveau</th>
+	<th>Naam</th>
+	<th>Achternaam</th>
+</tr>
+<tr>
+	<td><select id="insertNiveau" name="insertNiveau">
+			<option value="HAVO">HAVO</option>
+			<option value="TL">TL</option>
+			<option value="LWOO">LWOO</option>
+			<option value="KADER">KADER</option>
+			<option value="VWO">VWO</option>
+		</select></td>
+	<td><input type="text" id="insertNaam" name="insertNaam"/></td>
+	<td><input type="text" id="insertAchternaam" name="insertAchternaam"/></td>
+</tr>
+<tr>
+	<th>Geboortedatum</th>
+	<th>Postcode</th>
+	<th>Woonplaats</th>
+</tr>
+<tr>
+	<td><input type="date" id="insertGeboortedatum" name="insertGeboortedatum"/></td>
+	<td><input type="text" id="insertPostcode" name="insertPostcode"/></td>
+	<td><input type="text" id="insertWoonplaats" name="insertWoonplaats"/></td>
+</tr>
+</table>
+</form>
+
+<table id="leerlingButtons" style="display:none;">
+<tr>
+	<td colspan="3"><div class="first-half"><button id="leerlingOpslaan">Opslaan</button>
+	<button id="volgendeLeerling">Volgende Leerling</button></div></td>
+</tr>
+</table>
+<table id="leerlingUpdateButton" style="display:none;">
+<tr>
+	<td colspan="3"><div class="first-half"><button id="updateLeerling">Update Leerling</button></div></td>
+</tr>
+</table>
+
+<table id="docentFilters" style="display:none;">
+	<tr>
+		<td><input type="text" onkeyup="sortDocentnummer()" id="filterDocentnummer" class="filter" placeholder="Zoek op Docentnummer..."/></td>
+		<td><input type="text" onkeyup="sortNaam2()" id="filterNaam2" class="filter" placeholder="Zoek op Naam..."/></td>
+		<td><input type="text" onkeyup="sortNiveau2()" id="filterNiveau2"class="filter" placeholder="Zoek op Niveau..."/></td>
+		<td><input type="text" onkeyup="sortWoonplaats()" id="filterWoonplaats" class="filter" placeholder="Zoek op Woonplaats..."/></td>
+	</tr>
+</table>
+
+<form id="insertDocent" style="display:none;">
+<table id="docentTable">
+<tr>
+	<th>Inlognaam</th>
+	<th>Role</th>
+	<th>Wachtwoord</th>
+</tr>
+<tr>
+	<td><input type="text" id="insertInlognaam2" name="insertInlognaam2"/></td>
+	<td><input type="text" id="insertRole2" name="insertRole2" value="docent" readonly/></td>
+	<td><input type="text" id="insertWacthwoord2" name="insertWachtwoord2"/></td>
+</tr>
+<tr>
+	<th>Docentnummer</th>
+	<th>Naam</th>
+	<th>Achternaam</th>
+</tr>
+<tr>
+	<td><input type="text" id="insertDocentnummer" name="insertDocentnummer"/></td>
+	<td><input type="text" id="insertNaam2" name="insertNaam2"/></td>
+	<td><input type="text" id="insertAchternaam2" name="insertAchternaam2"/></td>
+</tr>
+<tr>
+	<th>Postcode</th>
+	<th>Woonplaats</th>
+	<th>Niveau</th>
+</tr>
+<tr>
+	<td><input type="text" id="insertPostcode2" name="insertPostcode2"/></td>
+	<td><input type="text" id="insertWoonplaats2" name="insertWoonplaats2"/></td>
+	<td><select id="insertNiveau2" name="insertNiveau2">
+			<option value="HAVO">HAVO</option>
+			<option value="TL">TL</option>
+			<option value="LWOO">LWOO</option>
+			<option value="KADER">KADER</option>
+			<option value="VWO">VWO</option>
+		</select></td>
+</tr>
+<tr>
+	<th colspan="3">Geboortedatum</th>
+</tr>
+<tr>
+	<td colspan="3" style="text-align:center;"><input type="date" id="insertGeboortedatum2" name="insertGeboortedatum2"/></td>
+</tr>
+</table>
+</form>
+
+<table id="docentButtons" style="display:none;">
+<tr>
+	<td colspan="3"><div class="first-half"><button id="docentOpslaan">Opslaan</button>
+	<button id="volgendeDocent">Volgende Docent</button></div></td>
+</tr>
+</table>
+<table id="docentUpdateButton" style="display:none;">
+<tr>
+	<td colspan="3"><div class="first-half"><button id="updateDocent">Update Docent</button></div></td>
+</tr>
+</table>
+
+<table id="leerlingOverzichtTable" style="display:none;">
+<tr>
+	<th>Leerlingnummer</th>
+	<th>Klas</th>
+	<th>Naam</th>
+	<th>Niveau</th>
+	<th>Update Leerling</th>
+	<th>Delete Leerling</th>
+</tr>
+</table>
+
+<table id="docentOverzichtTable" style="display:none;">
+<tr>
+	<th>Docentnummer</th>
+	<th>Naam</th>
+	<th>Niveau</th>
+	<th>Woonplaats</th>
+	<th>Update Docent</th>
+	<th>Delete Docent</th>
+</tr>
+</table>
+
+<div id="modalSuccess" style="display:none">
+		<h3>Succes!<label></label></h3>
+		Opgeslagen.
+		<button id="okClose">Ok</button>
+	</div>
+	
+<div id="modalError" style="display:none">
+		<h3>Error!<label></label></h3>
+		Er is iets fout gegaan bij het opslaan.
+		De server werkt niet meer of u bent niet bevoegd om deze bewerking uit te voeren.
+		<button id="okClose2">Ok</button>
+</div>
+
+<div id="modalSmallScreen" style="display:none">
+		<h3>Error!<label></label></h3>
+		Deze functie werkt nog niet op mobiel.
+		<button id="okClose3">Ok</button>
+</div>
+</div>
+</body>
+<script src="https://code.jquery.com/jquery-3.2.0.min.js"></script>
+<script src="js/jquery.plainmodal.min.js"></script>
+<script src="js/accountsAanmaken.js"></script>
+<script src="js/accountsLeerlingOverzicht.js"></script>
+<script src="js/accountsDocentOverzicht.js"></script>
+<script src="js/accounts.js"></script>
+</html>

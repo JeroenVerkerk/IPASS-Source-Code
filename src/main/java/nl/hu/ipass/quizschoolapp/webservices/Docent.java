@@ -8,9 +8,9 @@ public class Docent {
 	private String woonplaats;
 	private String niveau;
 	private String geboortedatum;
-	private Account inlognaam;
+	private String inlognaam;
 	
-	public Docent(int docentnummer, String naam, String achternaam, String postcode, String woonplaats, String niveau,String geboortedatum) {
+	public Docent(int docentnummer, String naam, String achternaam, String postcode, String woonplaats, String niveau,String geboortedatum, String inlognaam) {
 		super();
 		this.docentnummer = docentnummer;
 		this.naam = naam;
@@ -19,6 +19,7 @@ public class Docent {
 		this.woonplaats = woonplaats;
 		this.niveau = niveau;
 		this.geboortedatum = geboortedatum;
+		this.inlognaam = inlognaam;
 	}
 
 	public int getDocentnummer() {
@@ -77,11 +78,11 @@ public class Docent {
 		this.geboortedatum = geboortedatum;
 	}
 
-	public Account getInlognaam() {
+	public String getInlognaam() {
 		return inlognaam;
 	}
 
-	public void setInlognaam(Account inlognaam) {
+	public void setInlognaam(String inlognaam) {
 		this.inlognaam = inlognaam;
 	}
 	

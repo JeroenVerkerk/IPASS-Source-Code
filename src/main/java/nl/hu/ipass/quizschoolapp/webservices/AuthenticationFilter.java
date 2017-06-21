@@ -7,7 +7,7 @@ import javax.ws.rs.Priorities;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerRequestFilter;
 import javax.ws.rs.core.HttpHeaders;
-import javax.ws.rs.ext.Provider;
+import javax.ws.rs.ext.*;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
@@ -19,17 +19,16 @@ import io.jsonwebtoken.Jwts;
 public class AuthenticationFilter implements ContainerRequestFilter {
 	@Override
 	public void filter(ContainerRequestContext requestCtx) throws IOException {
-		// Users are treated as guests, unless a valid JWT is provided
+		// Gebruikers worden gasten, tenzij een goeie JWT is opgegeven
 		boolean isSecure = requestCtx.getSecurityContext().isSecure();
 		MySecurityContext msc = new MySecurityContext("Unknown", "guest", isSecure);
-		// Check if the HTTP Authorization header is present and formatted
-		// correctly
+		// check of de HTTP Authorization header er is en goed geformateerd
 		String authHeader = requestCtx.getHeaderString(HttpHeaders.AUTHORIZATION);
 		if (authHeader != null && authHeader.startsWith("Bearer ")) {
-			// Extract the token from the HTTP Authorization header
+			// haal de token uit de HTTP Authorization header
 			String token = authHeader.substring("Bearer ".length()).trim();
 			try {
-				// Validate the token
+				// Kijk of de token goed is
 				JwtParser parser = Jwts.parser().setSigningKey(AuthenticationResource.key);
 				Claims claims = parser.parseClaimsJws(token).getBody();
 				String user = claims.getSubject();

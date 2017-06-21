@@ -23,8 +23,9 @@ public class AuthenticationResource {
 	@POST
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	public Response authenticateUser(@FormParam("username") String username, @FormParam("password") String password) {
+		System.out.print("authenticating");
 		try {
-			// Authenticate the user against the database
+			// Authenticate de gebruiker tegen de database
 			UserDao dao = new UserDao();
 			String role = dao.findRoleForUsernameAndPassword(username, password);
 
@@ -32,13 +33,14 @@ public class AuthenticationResource {
 				throw new IllegalArgumentException("No user found!");
 			}
 
-			// Issue a token for the user
+			// maak een token voor de gebruiker
 			Calendar expiration = Calendar.getInstance();
 			expiration.add(Calendar.MINUTE, 30);
 
 			String token = Jwts.builder().setSubject(username).claim("role", role).setExpiration(expiration.getTime())
 					.signWith(SignatureAlgorithm.HS512, key).compact();
-			// Return the token on the response
+			// geef de token terug bij de response
+			System.out.println("rol="+role);
 			return Response.ok(token).build();
 		} catch (JwtException | IllegalArgumentException e) {
 			return Response.status(Response.Status.UNAUTHORIZED).build();

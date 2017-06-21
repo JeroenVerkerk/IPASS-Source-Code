@@ -11,6 +11,7 @@
 	<i id="menu" onclick="openNav()" class="fa fa-bars"></i>
     <h1 id="title"></h1>
 </div>
+
 <div id="mySidenav" class="sidenav">
   <a id="close" href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
   <a href="home.html"><i class="fa fa-home"> Home</i></a>
@@ -18,16 +19,25 @@
   <a href="quizOverzicht.html" id="leerling"><i class="fa fa-question-circle"> Quiz Overzicht</i></a>
   <a href="docentQuizOverzicht.html" id="docent"><i class="fa fa-question-circle"> Quiz Overzicht</i></a> 
   <a href="scoreOverzicht.html" id="leerlingScore"><i class="fa fa-list"> Cijfer Overzicht</i></a>
-  <a href="docentScoreOverzicht.html" id="docentScore"><i class="fa fa-list">Cijfer Overzicht</i></a> 
+  <a href="docentScoreOverzicht.html" id="docentScore"><i class="fa fa-list">Cijfer Overzicht</i></a>
+  <a href="lijstAanmaken.html" id="lijstMaken"><i class="fa fa-plus">Woordenlijst Maken</i></a>
+  <a href="lijstOverzicht.html" id="lijstOverzicht"><i class="fa fa-question-circle">Mijn Lijsten</i></a>
+  <a href="openbareLijsten.html" id="openbareLijsten"><i class="fa fa-question-circle">Openbare Lijsten</i></a>
+  <a href="accounts.html" id="accounts"><i class="fa fa-users">Accounts</i></a>
+  <a href="index.html"><i class="fa fa-sign-out">Logout</i></a> 
 </div>
+
 <div id="main">
+
 <div id="tables">
 	<input type="text" id="aantalGoed"/>
 	<input type="text" id="cijfer"/>
 <table id="resultaat" >
 </table>
+
 <button id="ok" style="vertical-align:middle"><span id="hover">Ok</span></button>
 </div>
+
 <form id="scoreInsert" style="display:none;">
 	<input type="text" id="insertCijfer" name="insertCijfer"/>
 	<input type="text" id="leerlingnummer" name="leerlingnummer"/>
@@ -35,93 +45,9 @@
 	<input type="text" id="datum" name="datum"/>
 	<input type="text" id="insertQuizId" name="insertQuizId"/>
 </form>
+
 </div>
 </body>
 <script src="https://code.jquery.com/jquery-3.2.0.min.js"></script>
-<script>
-var role = window.sessionStorage.getItem("Role");
-var aantalVragen = window.sessionStorage.getItem("aantalVragen");
-var punten = window.sessionStorage.getItem("Punten")
-var berekening = punten / aantalVragen * 10;
-var cijfer = Math.round(berekening * 10) / 10;
-var fouteVragen = JSON.parse(window.sessionStorage.getItem("fouteVragen"));
-var currentDate = new Date();
-
-function initPage() {
-	console.log(window.sessionStorage.getItem("DocentNaam"));
-	if (role == "leerling") {
-		$("#quizCreator").hide();
-		$("#docent").hide();
-		$("#docentScore").hide();
-	}
-	else if (role == "docent") {
-		$("#leerling").hide();
-		$("#leerlingScore").hide();
-	}
-	$("#title").text(window.sessionStorage.getItem("QuizNaam") + " resultaat")
-	$("#aantalGoed").val("Je hebt "+punten+" van de "+aantalVragen+" goed beantwoord.")
-	$("#cijfer").val("CIJFER: "+cijfer);
-	console.log(fouteVragen);
-	if (fouteVragen.length >=1) {
-		$("#resultaat").append("<tr><td><textarea id='comment'>Deze vragen had je fout en zijn goede onderwerpen om nog eens beter naar te kijken</textarea></td></tr>");
-		$.each(fouteVragen, function(i, vraag) {
-			$("#resultaat").append("<tr><td><textarea>"+vraag+"</textarea></td></tr>");
-		});
-	}
-	$("#insertCijfer").val(cijfer);
-	$("#leerlingnummer").val(window.sessionStorage.getItem("Leerlingnummer"));
-	$("#quizNaam").val(window.sessionStorage.getItem("QuizNaam"));
-	$("#datum").val(formatDate(currentDate));
-	$("#insertQuizId").val(window.sessionStorage.getItem("ScoreQuizId"));
-	window.sessionStorage.removeItem("aantalVragen");
-	window.sessionStorage.removeItem("Punten");
-	window.sessionStorage.removeItem("fouteVragen");
-	insertScore();
-}
-
-function formatDate(date) {
-	var dag = date.getDate();
-	var maand = '0' + date.getMonth()
-	var jaar = date.getFullYear();
-	
-	return jaar + '-' + maand + '-' + dag;
-}
-
-function insertScore() {
-	var uri = "/restservices/scores";
-	$.ajax({
-		url: uri,
-		type: "POST",
-		data: $("#scoreInsert").serialize(),
-		beforeSend: function(xhr) {
-			var token = window.sessionStorage.getItem("sessionToken");
-			xhr.setRequestHeader( 'Authorization', 'Bearer ' + token);
-			console.log(token);
-		},
-		success: function(response) {
-			$("#response").text(response);
-		},
-		error: function() {
-		}
-	});
-}
-
-/* Set the width of the side navigation to 250px */
-function openNav() {
-    document.getElementById("mySidenav").style.width = "250px";
-    document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
-}
-
-/* Set the width of the side navigation to 0 */
-function closeNav() {
-    document.getElementById("mySidenav").style.width = "0";
-    document.body.style.backgroundColor = "white";
-}
-
-$("#ok").click(function() {
-	window.location.href = 'quizOverzicht.html';
-});
-
-window.onload = initPage;
-</script>
+<script src="js/Resultaat.js"></script>
 </html>

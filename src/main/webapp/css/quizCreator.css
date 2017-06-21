@@ -294,17 +294,17 @@ textarea:focus, input:focus {
 	button {
 	  width: 60%;
 	  position: absolute;
-	  right: 50%;
+	  margin-right: 70%;
 	  bottom: 50%;
 	  background: #09C;
 	  color: #fff;
 	  font-family: Tahoma, Geneva, sans-serif;
-	  height: 70%;
+	  height: 90%;
 	  border-radius: 15px;
 	  border: 1p solid #999;
 	}
 	
-	input.button:hover {
+	button:hover {
 	  background: #fff;
 	  color: #09C;
 	}

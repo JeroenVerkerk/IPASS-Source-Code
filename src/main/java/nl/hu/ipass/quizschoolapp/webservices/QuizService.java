@@ -4,10 +4,12 @@ import java.util.List;
 import nl.hu.ipass.quizschoolapp.persistence.*;
 
 public class QuizService {
+	//maak nieuwe dao's aan
 	private QuizDao quizDao = new QuizDao();
 	private QuestionDao questionDao = new QuestionDao();
 	private AnswerDao answerDao = new AnswerDao();
 	
+	//haal de volgende functies op uit de dao's zodat ze gebruikt kunnen worden in de resources
 	public List<Quiz> getAllQuizes() {
 		return quizDao.findAll();
 	}

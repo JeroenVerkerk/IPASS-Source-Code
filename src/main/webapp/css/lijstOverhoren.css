@@ -1,0 +1,422 @@
+body {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	vertical-align: baseline;
+}
+
+h1 {
+	color: white;
+	font-family: arial;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	vertical-align: baseline;
+	background-color: #D52B1E;
+	float: left;
+	width: 96%;
+	text-align: center;
+	border-bottom: 3px solid #D52B1E;
+}
+
+#menu {
+	background-color: #D52B1E;
+	float: left;
+	width: 4%;
+	text-align: left;
+	font-size: 40px;
+}
+
+#menu:hover {
+	cursor: pointer;
+}
+
+#top {
+	display: table-row;
+}
+
+.sidenav {
+	height: 100%; /* 100% Full-height */
+	width: 0; /* 0 width - change this with JavaScript */
+	position: fixed; /* Stay in place */
+	z-index: 1; /* Stay on top */
+	top: 0;
+	left: 0;
+	background-color: #D52B1E; /* Black*/
+	overflow-x: hidden; /* Disable horizontal scroll */
+	padding-top: 60px; /* Place content 60px from the top */
+	transition: 0.5s;
+	/* 0.5 second transition effect to slide in the sidenav */
+}
+
+/* The navigation menu links */
+.sidenav a {
+	padding: 8px 8px 8px 32px;
+	text-decoration: none;
+	font-size: 25px;
+	color: white;
+	display: block;
+	transition: 0.3s
+}
+
+#close:hover, #close:focus {
+	background-color: #D52B1E;
+	color: black;
+}
+
+.closebtn:hover, .closebtn:focus {
+	background-color: #D52B1E;
+	color: black;
+}
+/* When you mouse over the navigation links, change their color */
+.sidenav a:hover, .offcanvas a:focus {
+	color: #f1f1f1;
+	background-color: white;
+	color: black;
+}
+
+/* Position and style the close button (top right corner) */
+.sidenav .closebtn {
+	position: absolute;
+	top: 0;
+	right: 25px;
+	font-size: 36px;
+	margin-left: 50px;
+}
+
+/* Style page content - use this if you want to push the page content to the right when you open the side navigation */
+#main {
+	transition: margin-left .5s;
+	padding: 20px;
+}
+
+/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+@media screen and (max-height: 450px) {
+	.sidenav {
+		padding-top: 15px;
+	}
+	.sidenav a {
+		font-size: 18px;
+	}
+}
+
+#startButton {
+	display: inline-block;
+	border-radius: 4px;
+	background-color: #f4511e;
+	border: none;
+	color: #FFFFFF;
+	text-align: center;
+	font-size: 12px;
+	padding: 25px;
+	width: 160px;
+	transition: all 0.5s;
+	cursor: pointer;
+	margin: 5px;
+}
+
+#startButton #hover {
+	cursor: pointer;
+	display: inline-block;
+	position: relative;
+	transition: 0.5s;
+}
+
+#startButton #hover:after {
+	content: '\00bb';
+	position: absolute;
+	opacity: 0;
+	top: 0;
+	right: -20px;
+	transition: 0.5s;
+}
+
+#startButton:hover #hover {
+	padding-right: 25px;
+}
+
+#startButton:hover #hover:after {
+	opacity: 1;
+	right: 0;
+}
+
+table {
+	display: block;
+	margin-left: 38%;
+	margin-top: 20%;
+	margin-right: 30%;
+	text-align: center;
+	margin-left: 38%;
+}
+
+textarea {
+	resize: none;
+	overflow: auto;
+	font-family: Georgia, "Times New Roman", Times, serif;
+	background: rgba(255, 255, 255, .1);
+	border: none;
+	border-radius: 4px;
+	font-size: 16px;
+	margin-left: 4%;
+	outline: 0;
+	padding: 7px;
+	width: 500px;
+	height: 300px;
+	text-align: center;
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	background-color: #e8eeef;
+	color: black;
+	-webkit-box-shadow: 0 1px 0 rgba(0, 0, 0, 0.03) inset;
+	box-shadow: 0 1px 0 rgba(0, 0, 0, 0.03) inset;
+}
+
+textarea {
+	background: #d2d9dd;
+}
+
+#lijstNaam {
+	border: none;
+	border-bottom: 2px solid red;
+	font-size: 30px;
+	text-align: center;
+}
+
+#taal {
+	border: none;
+	border-bottom: 2px solid red;
+	font-size: 30px;
+	text-align: center;
+}
+
+#nextWoord {
+	color: #fff;
+	background-color: #6496c8;
+	border: none;
+	border-radius: 15px;
+	box-shadow: 0 7px #27496d;
+	margin-top: 5%;
+}
+
+#nextWoord:hover {
+	background-color: #417cb8
+}
+
+#nextWoord:active {
+	background-color: #417cb8;
+	box-shadow: 0 5px #27496d;
+	transform: translateY(5px);
+}
+
+#controleren {
+	color: #fff;
+	background-color: #6496c8;
+	border: none;
+	border-radius: 15px;
+	box-shadow: 0 7px #27496d;
+	margin-top: 5%;
+}
+
+#controleren:hover {
+	background-color: #56c619
+}
+
+#controleren:active {
+	background-color: #56c619;
+	box-shadow: 0 5px #27496d;
+	transform: translateY(5px);
+}
+
+#taalKeuze {
+	background: -webkit-linear-gradient(bottom, #CCCCCC, #EEEEEE 175px);
+	background: -moz-linear-gradient(bottom, #CCCCCC, #EEEEEE 175px);
+	background: linear-gradient(bottom, #CCCCCC, #EEEEEE 175px);
+	margin-top: 20%;
+	margin-left: 40%;
+	width: 20%;
+	height: 60%;
+	font-family: Tahoma, Geneva, sans-serif;
+	font-size: 14px;
+	font-style: italic;
+	line-height: 24px;
+	font-weight: bold;
+	color: #09C;
+	text-decoration: none;
+	border-radius: 10px;
+	padding: 10px;
+	border: 1px solid #999;
+	border: inset 1px solid #333;
+	-webkit-box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
+	-moz-box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
+	box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
+	text-align: center;
+}
+
+#taalKeuze button {
+	display: inline-block;
+	padding: 15px 30px;
+	font-size: 15px;
+	cursor: pointer;
+	text-align: center;
+	text-decoration: none;
+	outline: none;
+	color: #fff;
+	background-color: #D52B1E;
+	border: none;
+	border-radius: 8px;
+	box-shadow: 0 3px #999;
+}
+
+#taalKeuze button:hover {
+	background-color: grey;
+	color: black;
+}
+
+#taalKeuze button:active {
+	background-color: #D52B1E;
+	box-shadow: 0 3px #666;
+	transform: translateY(4px);
+}
+
+#border {
+	background: -webkit-linear-gradient(bottom, #CCCCCC, #EEEEEE 175px);
+	background: -moz-linear-gradient(bottom, #CCCCCC, #EEEEEE 175px);
+	background: linear-gradient(bottom, #CCCCCC, #EEEEEE 175px);
+	margin-top: 10%;
+	margin-left: 33%;
+	width: 550px;
+	height: auto;
+	font-family: Tahoma, Geneva, sans-serif;
+	font-size: 14px;
+	font-style: italic;
+	line-height: 24px;
+	font-weight: bold;
+	color: #09C;
+	text-decoration: none;
+	border-radius: 10px;
+	padding: 10px;
+	border: 1px solid #999;
+	border: inset 1px solid #333;
+	-webkit-box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
+	-moz-box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
+	box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
+	display: block;
+	font-family: Tahoma, Geneva, sans-serif;
+	text-align: center;
+}
+
+@media only screen and (max-width: 760px) {
+	table {
+		margin-left: 0.5%;
+		margin-top: 90%;
+		margin-right: 22%;
+		text-align: center;
+	}
+	#border {
+		background: -webkit-linear-gradient(bottom, #CCCCCC, #EEEEEE 175px);
+		background: -moz-linear-gradient(bottom, #CCCCCC, #EEEEEE 175px);
+		background: linear-gradient(bottom, #CCCCCC, #EEEEEE 175px);
+		margin: auto;
+		margin-top: 20%;
+		width: auto;
+		max-width: 300px;
+		height: auto;
+		font-family: Tahoma, Geneva, sans-serif;
+		font-size: 14px;
+		font-style: italic;
+		line-height: 24px;
+		font-weight: bold;
+		color: #09C;
+		text-decoration: none;
+		border-radius: 10px;
+		padding: 10px;
+		border: 1px solid #999;
+		border: inset 1px solid #333;
+		-webkit-box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
+		-moz-box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
+		box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
+		display: block;
+		text-align: center;
+	}
+	#taalKeuze {
+		width: auto;
+		margin-left: 10%;
+		margin-right: 10%;
+	}
+	#taal2 {
+		margin-top: 5%;
+	}
+	#nextWoord {
+		color: #fff;
+		background-color: #6496c8;
+		border: none;
+		border-radius: 15px;
+		box-shadow: 0 7px #27496d;
+		margin-top: 5%;
+		width: 50%;
+	}
+	#nextWoord:hover {
+		background-color: #417cb8
+	}
+	#nextWoord:active {
+		background-color: #417cb8;
+		box-shadow: 0 5px #27496d;
+		transform: translateY(5px);
+	}
+	#controleren {
+		color: #fff;
+		background-color: #6496c8;
+		border: none;
+		border-radius: 15px;
+		box-shadow: 0 7px #27496d;
+		margin-top: 5%;
+		width: 50%;
+	}
+	#controleren:hover {
+		background-color: #56c619
+	}
+	#controleren:active {
+		background-color: #56c619;
+		box-shadow: 0 5px #27496d;
+		transform: translateY(5px);
+	}
+	button {
+		width: 100%;
+	}
+	textarea {
+		width: auto;
+		margin-left: 15%;
+		height: 200px;
+	}
+	h1 {
+		width: 90%;
+	}
+	#menu {
+		width: 10%;
+	}
+}
+
+.overhoorVraag {
+	box-sizing: border-box;
+	border: 2px solid #ccc;
+	border-radius: 4px;
+	font-size: 16px;
+	background-color: white;
+	padding: 12px 20px 12px 40px;
+}
+
+.overhoorVraag:focus {
+	border: 3px solid #555;
+	background-color: lightblue;
+}
+
+#response {
+	color: green;
+}
+
+#responseBad {
+	color: red;
+}

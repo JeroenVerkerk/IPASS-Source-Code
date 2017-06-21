@@ -7,10 +7,12 @@
 <title>Quiz Overzicht</title>
 </head>
 <body>
+
 <div id="header">
 	<i id="menu" onclick="openNav()" class="fa fa-bars"></i>
     <h1>Cijfer Overzicht</h1>
 </div>
+
 <div id="mySidenav" class="sidenav">
   <a id="close" href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
   <a href="home.html"><i class="fa fa-home"> Home</i></a>
@@ -18,17 +20,27 @@
   <a href="quizOverzicht.html"><i class="fa fa-question-circle" id="leerling"> Quiz Overzicht</i></a>
   <a href="docentQuizOverzicht.html" id="docent"><i class="fa fa-question-circle"> Quiz Overzicht</i></a>  
   <a class="active" href="scoreOverzicht.html" id="leerlingScore"><i class="fa fa-list"> Cijfer Overzicht</i></a>
-  <a href="docentScoreOverzicht.html" id="docentScore"><i class="fa fa-list">Cijfer Overzicht</i></a> 
+  <a href="docentScoreOverzicht.html" id="docentScore"><i class="fa fa-list">Cijfer Overzicht</i></a>
+  <a href="lijstAanmaken.html" id="lijstMaken"><i class="fa fa-plus">Woordenlijst Maken</i></a>
+  <a href="lijstOverzicht.html" id="lijstOverzicht"><i class="fa fa-question-circle">Mijn Lijsten</i></a>
+  <a href="openbareLijsten.html" id="openbareLijsten"><i class="fa fa-question-circle">Openbare Lijsten</i></a>
+  <a href="accounts.html" id="accounts"><i class="fa fa-users">Accounts</i></a>
+  <a href="index.html"><i class="fa fa-sign-out">Logout</i></a> 
 </div>
+
 <div id="main">
+
 <table id="filters">
 	<tr>
 		<td><input type="text" onkeyup="sortQuizNaam()" id="filterNaam" class="filter" placeholder="Zoek op Quiz Naam..."/></td>
 		<td><input type="text" onkeyup="sortDatum()" id="filterDatum" class="filter" placeholder="Zoek op Datum..."/></td>
 	</tr>
 </table>
+
 <table id="quizzes">
 <thead>
+	<tr>
+		<th colspan="3" style="text-align:center;">Quiz Scores</th>
 	<tr>
 		<th>Naam</th>
 		<th>Cijfer</th>
@@ -37,85 +49,29 @@
 </thead>
 <tbody></tbody>
 </table>
+
+<table id="woordenlijstFilters">
+	<tr>
+		<td><input type="text" onkeyup="sortLijstNaam()" id="filterLijstNaam" class="filter" placeholder="Zoek op Lijst Naam..."/></td>
+		<td><input type="text" onkeyup="sortLijstDatum()" id="filterLijstDatum" class="filter" placeholder="Zoek op Datum..."/></td>
+	</tr>
+</table>
+
+<table id="woordenlijsten">
+<thead>
+	<tr>
+		<th colspan="3" style="text-align:center;">Woordenlijst Scores</th>
+	<tr>
+		<th>Naam</th>
+		<th>Cijfer</th>
+		<th>Datum</th>
+	</tr>
+</thead>
+<tbody></tbody>
+</table>
+
 </div>
 </body>
 <script src="https://code.jquery.com/jquery-3.2.0.min.js"></script>
-<script>
-var role = window.sessionStorage.getItem("Role");
-function initPage() {
-	if (role == "leerling") {
-		$("#quizCreator").hide();
-		$("#docent").hide();
-		$("#docentScore").hide();
-	}
-	else if (role == "docent") {
-		$("#leerling").hide();
-		$("#leerlingScore").hide();
-	}
-	
-	$.get("/restservices/scores/leerling/"+window.sessionStorage.getItem("Leerlingnummer"), function(data) {
-		$.each(data, function(i, score) {
-			var naam = score.QuizNaam;
-			var cijfer = score.Score;
-			var datum = score.Datum
-			$("#quizzes").append("<tr><td>" + naam + "</td><td>" + cijfer + "</td><td>" + datum + "</td></tr>");
-		});
-	});
-}
-
-/* Set the width of the side navigation to 250px */
-function openNav() {
-    document.getElementById("mySidenav").style.width = "250px";
-    document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
-}
-
-/* Set the width of the side navigation to 0 */
-function closeNav() {
-    document.getElementById("mySidenav").style.width = "0";
-    document.body.style.backgroundColor = "white";
-}
-
-function sortQuizNaam() {
-	  // Declare variables 
-	  var input, filter, table, tr, td, i;
-	  input = document.getElementById("filterNaam");
-	  filter = input.value.toUpperCase();
-	  table = document.getElementById("quizzes");
-	  tr = table.getElementsByTagName("tr");
-
-	  // Loop through all table rows, and hide those who don't match the search query
-	  for (i = 0; i < tr.length; i++) {
-	    td = tr[i].getElementsByTagName("td")[0];
-	    if (td) {
-	      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
-	        tr[i].style.display = "";
-	      } else {
-	        tr[i].style.display = "none";
-	      }
-	    } 
-	  }
-	}
-	
-function sortDatum() {
-	  // Declare variables 
-	  var input, filter, table, tr, td, i;
-	  input = document.getElementById("filterDatum");
-	  filter = input.value.toUpperCase();
-	  table = document.getElementById("quizzes");
-	  tr = table.getElementsByTagName("tr");
-
-	  // Loop through all table rows, and hide those who don't match the search query
-	  for (i = 0; i < tr.length; i++) {
-	    td = tr[i].getElementsByTagName("td")[2];
-	    if (td) {
-	      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
-	        tr[i].style.display = "";
-	      } else {
-	        tr[i].style.display = "none";
-	      }
-	    } 
-	  }
-}
-window.onload = initPage;
-</script>
+<script src="js/scoreOverzicht.js"></script>
 </html>

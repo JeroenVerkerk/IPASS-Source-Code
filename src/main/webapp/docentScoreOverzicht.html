@@ -18,7 +18,12 @@
   <a href="quizOverzicht.html" id="leerling"><i class="fa fa-question-circle"> Quiz Overzicht</i></a>
   <a href="docentQuizOverzicht.html" id="docent"><i class="fa fa-question-circle"> Quiz Overzicht</i></a>  
   <a href="scoreOverzicht.html" id="leerlingScore"><i class="fa fa-list"> Cijfer Overzicht</i></a>
-  <a class="active" href="docentScoreOverzicht.html" id="docentScore"><i class="fa fa-list">Cijfer Overzicht</i></a> 
+  <a class="active" href="docentScoreOverzicht.html" id="docentScore"><i class="fa fa-list">Cijfer Overzicht</i></a>
+  <a href="lijstAanmaken.html" id="lijstMaken"><i class="fa fa-plus">Woordenlijst Maken</i></a>
+  <a href="lijstOverzicht.html" id="lijstOverzicht"><i class="fa fa-question-circle">Mijn Lijsten</i></a>
+  <a href="openbareLijsten.html" id="openbareLijsten"><i class="fa fa-question-circle">Openbare Lijsten</i></a>
+  <a href="accounts.html" id="accounts"><i class="fa fa-users">Accounts</i></a>
+  <a href="index.html"><i class="fa fa-sign-out">Logout</i></a> 
 </div>
 <div id="main">
 <table id="filters">
@@ -42,116 +47,5 @@
 </div>
 </body>
 <script src="https://code.jquery.com/jquery-3.2.0.min.js"></script>
-<script>
-var role = window.sessionStorage.getItem("Role");
-function initPage() {
-	if (role == "leerling") {
-		$("#quizCreator").hide();
-		$("#docent").hide();
-		$("#docentScore").hide();
-	}
-	else if (role == "docent") {
-		$("#leerling").hide();
-		$("#leerlingScore").hide();
-	}
-		
-	$.get("/restservices/quizzes/byDocent/"+window.sessionStorage.getItem("DocentNaam"), function(data) {
-		$.each(data, function(i, quiz) {
-			var quizId = quiz.QuizId;
-			
-			getScores(quizId);
-		});
-	});
-}
-
-function getScores(quizId) {
-	$.get("/restservices/scores/docent/"+quizId, function(data) {
-		$.each(data, function(i, score) {
-			var naam = score.QuizNaam;
-			var leerlingnummer = score.Leerlingnummer;
-			var cijfer = score.Score;
-			var datum = score.Datum
-			$("#quizzes").append("<tr><td>"+ naam +"</td><td>" + leerlingnummer + "</td><td>" + cijfer + "</td><td>" + datum + "</td></tr>");
-		});
-	});	
-}
-
-/* Set the width of the side navigation to 250px */
-function openNav() {
-    document.getElementById("mySidenav").style.width = "250px";
-    document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
-}
-
-/* Set the width of the side navigation to 0 */
-function closeNav() {
-    document.getElementById("mySidenav").style.width = "0";
-    document.body.style.backgroundColor = "white";
-}
-
-
-	function sortQuizNaam() {
-		// Declare variables 
-		var input, filter, table, tr, td, i;
-		input = document.getElementById("filterNaam");
-		filter = input.value.toUpperCase();
-		table = document.getElementById("quizzes");
-		tr = table.getElementsByTagName("tr");
-
-		// Loop through all table rows, and hide those who don't match the search query
-		for (i = 0; i < tr.length; i++) {
-			td = tr[i].getElementsByTagName("td")[0];
-			if (td) {
-				if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
-					tr[i].style.display = "";
-				} else {
-					tr[i].style.display = "none";
-				}
-			}
-		}
-	}
-
-	function sortLeerlingnummer() {
-		// Declare variables 
-		var input, filter, table, tr, td, i;
-		input = document.getElementById("filterLeerlingnummer");
-		filter = input.value.toUpperCase();
-		table = document.getElementById("quizzes");
-		tr = table.getElementsByTagName("tr");
-
-		// Loop through all table rows, and hide those who don't match the search query
-		for (i = 0; i < tr.length; i++) {
-			td = tr[i].getElementsByTagName("td")[1];
-			if (td) {
-				if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
-					tr[i].style.display = "";
-				} else {
-					tr[i].style.display = "none";
-				}
-			}
-		}
-	}
-
-	function sortDatum() {
-		// Declare variables 
-		var input, filter, table, tr, td, i;
-		input = document.getElementById("filterDatum");
-		filter = input.value.toUpperCase();
-		table = document.getElementById("quizzes");
-		tr = table.getElementsByTagName("tr");
-
-		// Loop through all table rows, and hide those who don't match the search query
-		for (i = 0; i < tr.length; i++) {
-			td = tr[i].getElementsByTagName("td")[3];
-			if (td) {
-				if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
-					tr[i].style.display = "";
-				} else {
-					tr[i].style.display = "none";
-				}
-			}
-		}
-	}
-
-	window.onload = initPage;
-</script>
+<script src="js/docentScoreOverzicht.js"></script>
 </html>
